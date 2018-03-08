@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MoreCommands.iml" filepath="$PROJECT_DIR$/MoreCommands.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MoreCommands_api.iml" filepath="$PROJECT_DIR$/.idea/modules/MoreCommands_api.iml" group="MoreCommands" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MoreCommands_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MoreCommands_main.iml" group="MoreCommands" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MoreCommands_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MoreCommands_test.iml" group="MoreCommands" />
+    </modules>
+  </component>
+</project>
