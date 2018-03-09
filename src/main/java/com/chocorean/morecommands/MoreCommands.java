@@ -34,11 +34,12 @@ public class MoreCommands
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         File dir = new File("mods/MoreCommands");
-        dir.mkdir();
-        if (!new File("mods/MoreCommands/config").exists()) {
+        if (!dir.exists())
+            dir.mkdir();
+        if (!new File("mods/MoreCommands/home").exists()) {
             PrintWriter writer;
             try {
-                writer = new PrintWriter("mods/MoreCommands/config");
+                writer = new PrintWriter("mods/MoreCommands/home");
                 writer.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
