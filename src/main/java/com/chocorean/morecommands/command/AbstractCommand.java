@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractCommand extends CommandBase implements ICommand {
-    private final ArrayList aliases;
+    private final ArrayList<String> aliases;
 
-    public AbstractCommand(){
-        aliases = new ArrayList();
+    AbstractCommand(){
+        aliases = new ArrayList<String>();
     }
 
     @Override

@@ -72,10 +72,6 @@ public class MoreCommands
         LOGGER.info("Registering MoreCommands /tpa Command");
         event.registerServerCommand(new TpaCommand());
         LOGGER.info("Registering AuthMod /tpahere Handler");
-        event.registerServerCommand(new TpahereCommand());
-        LOGGER.info("Registering MoreCommands /tpyes Command");
-        event.registerServerCommand(new TpYesCommand());
-        LOGGER.info("Registering AuthMod /tyno Handler");
-        event.registerServerCommand(new TpNoCommand());
+        event.registerServerCommand(new TpaHereCommand());
     }
 }
