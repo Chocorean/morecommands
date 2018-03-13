@@ -1,5 +1,6 @@
 package com.chocorean.morecommands.command;
 
+import com.chocorean.morecommands.misc.PosPlayer;
 import com.chocorean.morecommands.misc.TpaHereRequest;
 import com.chocorean.morecommands.misc.TpaRequest;
 import net.minecraft.command.CommandException;
@@ -60,6 +61,12 @@ public class TpaHereCommand extends AbstractCommand {
             } else if (args[0].equals("yes")){ // ok pour tp qqun
                 for (TpaRequest tr : TpaCommand.requests) {
                     if (tr.dest.getName().equals(sender.getName())) {
+                        // updating last position for back
+                        for (PosPlayer pp : BackCommand.players) {
+                            if (pp.player.getName().equals(tr.target.getName())){
+                                pp.position = sender.getPosition();
+                            }
+                        }
                         ((EntityPlayerMP)tr.dest).connection.sendPacket(new SPacketChat(new TextComponentString("Tpahere request accepted.")));
                         ((EntityPlayerMP)tr.target).connection.sendPacket(new SPacketChat(new TextComponentString(tr.dest +" accepted your request.")));
                         ((EntityPlayerMP)tr.target).setPositionAndUpdate(((EntityPlayerMP) tr.dest).posX, ((EntityPlayerMP) tr.dest).posY, ((EntityPlayerMP) tr.dest).posZ);

@@ -1,5 +1,6 @@
 package com.chocorean.morecommands.command;
 
+import com.chocorean.morecommands.misc.PosPlayer;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -36,6 +37,12 @@ public class HomeCommand extends AbstractCommand {
             String line=reader.readLine();
             while (line != null) {
                 if (line.contains(sender.getName())) {
+                    // updating last position for back
+                    for (PosPlayer pp : BackCommand.players) {
+                        if (pp.player.getName().equals(sender.getName())){
+                            pp.position = sender.getPosition();
+                        }
+                    }
                     String[] infos = line.split(" ");
                     ((EntityPlayerMP)sender).setPositionAndUpdate(Double.parseDouble(infos[1]), Double.parseDouble(infos[2]), Double.parseDouble(infos[3]));
                     ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Teleported to home.")));

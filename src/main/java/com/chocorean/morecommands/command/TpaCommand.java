@@ -61,6 +61,12 @@ public class TpaCommand extends AbstractCommand {
             } else if (args[0].equals("yes")){ // ok pour se tp a qqun
                 for (TpaHereRequest tr : TpaHereCommand.requests) {
                     if (tr.target.getName().equals(sender.getName())) {
+                        // updating last position for back
+                        for (PosPlayer pp : BackCommand.players) {
+                            if (pp.player.getName().equals(tr.target.getName())){
+                                pp.position = sender.getPosition();
+                            }
+                        }
                         ((EntityPlayerMP)tr.dest).connection.sendPacket(new SPacketChat(new TextComponentString(tr.target.getName()+" accepted your tpahere request.")));
                         ((EntityPlayerMP)tr.target).connection.sendPacket(new SPacketChat(new TextComponentString("Tpa request accepted.")));
                         ((EntityPlayerMP)tr.target).setPositionAndUpdate(((EntityPlayerMP) tr.dest).posX, ((EntityPlayerMP) tr.dest).posY, ((EntityPlayerMP) tr.dest).posZ);
