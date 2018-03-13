@@ -3,6 +3,7 @@ package com.chocorean.morecommands.command;
 import com.chocorean.morecommands.misc.PosPlayer;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +30,7 @@ public class SpawnCommand extends AbstractCommand {
                 }
             }
             BlockPos spawn = server.getEntityWorld().getSpawnPoint();
-            ((EntityPlayerMP)sender).connection.setPlayerLocation(spawn.getX(),spawn.getY(),spawn.getZ(),0, 0);
+            ((EntityPlayer)sender).setPositionAndUpdate(spawn.getX(),spawn.getY(),spawn.getZ());
         }
     }
 }
