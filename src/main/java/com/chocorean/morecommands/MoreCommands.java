@@ -35,11 +35,22 @@ public class MoreCommands
     public void preInit(FMLPreInitializationEvent event) {
         File dir = new File("mods/MoreCommands");
         if (!dir.exists())
-            dir.mkdir();
+            if (!dir.mkdir()) {
+                LOGGER.warning("Cannot create config folder. Things gonna be great.");
+            }
         if (!new File("mods/MoreCommands/home").exists()) {
             PrintWriter writer;
             try {
                 writer = new PrintWriter("mods/MoreCommands/home");
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!new File("mods/MoreCommands/warp").exists()) {
+            PrintWriter writer;
+            try {
+                writer = new PrintWriter("mods/MoreCommands/warp");
                 writer.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -59,19 +70,25 @@ public class MoreCommands
         MinecraftForge.EVENT_BUS.register(new Handler());
         LOGGER.info("Registering MoreCommands /spawn Command");
         event.registerServerCommand(new SpawnCommand());
-        LOGGER.info("Registering AuthMod /setspawn Handler");
+        LOGGER.info("Registering AuthMod /setspawn Command");
         event.registerServerCommand(new SetSpawnCommand());
         LOGGER.info("Registering MoreCommands /home Command");
         event.registerServerCommand(new HomeCommand());
-        LOGGER.info("Registering AuthMod /sethome Handler");
+        LOGGER.info("Registering AuthMod /sethome Command");
         event.registerServerCommand(new SetHomeCommand());
         LOGGER.info("Registering MoreCommands /back Command");
         event.registerServerCommand(new BackCommand());
-        LOGGER.info("Registering AuthMod /afk Handler");
+        LOGGER.info("Registering AuthMod /afk Command");
         event.registerServerCommand(new AFKCommand());
         LOGGER.info("Registering MoreCommands /tpa Command");
         event.registerServerCommand(new TpaCommand());
-        LOGGER.info("Registering AuthMod /tpahere Handler");
+        LOGGER.info("Registering AuthMod /tpahere Command");
         event.registerServerCommand(new TpaHereCommand());
+        LOGGER.info("Registering AuthMod /warps Command");
+        event.registerServerCommand(new WarpsCommand());
+        LOGGER.info("Registering AuthMod /warp Command");
+        event.registerServerCommand(new WarpCommand());
+        LOGGER.info("Registering AuthMod /setwarp Command");
+        event.registerServerCommand(new SetwarpCommand());
     }
 }
