@@ -2,21 +2,16 @@ package com.chocorean.morecommands.command;
 
 import com.chocorean.morecommands.misc.PosPlayer;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeCommand extends AbstractCommand {
     @Override
@@ -36,7 +31,8 @@ public class HomeCommand extends AbstractCommand {
             reader = new BufferedReader(new FileReader("mods/MoreCommands/home"));
             String line=reader.readLine();
             while (line != null) {
-                if (line.contains(sender.getName())) {
+                if (line.split(" ")[0].equals(sender.getName())) {
+                    reader.close();
                     // updating last position for back
                     for (PosPlayer pp : BackCommand.players) {
                         if (pp.player.getName().equals(sender.getName())){

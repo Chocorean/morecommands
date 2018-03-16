@@ -70,7 +70,7 @@ public class TpaHereCommand extends AbstractCommand {
                         ((EntityPlayerMP)tr.dest).connection.sendPacket(new SPacketChat(new TextComponentString("Tpahere request accepted.")));
                         ((EntityPlayerMP)tr.target).connection.sendPacket(new SPacketChat(new TextComponentString(tr.dest +" accepted your request.")));
                         ((EntityPlayerMP)tr.target).setPositionAndUpdate(((EntityPlayerMP) tr.dest).posX, ((EntityPlayerMP) tr.dest).posY, ((EntityPlayerMP) tr.dest).posZ);
-                        TpaHereCommand.requests.remove(tr);
+                        TpaCommand.requests.remove(tr);
                         break;
                     }
                 }

@@ -35,7 +35,6 @@ public class SetwarpCommand extends AbstractCommand {
             reader = new BufferedReader(new FileReader("mods/MoreCommands/warp"));
             writer = new PrintWriter(new FileWriter("mods/MoreCommands/warp.tmp"));
             String line = reader.readLine();
-            int i=0;
             boolean hasBeenReplaced=false;
             while (line != null) {
                 if (line.contains(args[0])) {

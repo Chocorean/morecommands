@@ -1,7 +1,6 @@
 package com.chocorean.morecommands.command;
 
 import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketChat;
@@ -9,10 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
-import javax.annotation.Nullable;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SetHomeCommand extends AbstractCommand {
     @Override
@@ -44,7 +40,6 @@ public class SetHomeCommand extends AbstractCommand {
             reader = new BufferedReader(new FileReader("mods/MoreCommands/home"));
             writer = new PrintWriter(new FileWriter("mods/MoreCommands/home.tmp"));
             String line = reader.readLine();
-            int i=0;
             boolean hasBeenReplaced=false;
             while (line != null) {
                 if (line.contains(sender.getName())) {
