@@ -3,3 +3,10 @@ run/*
 build/*
 .gradle/*
 gradle*
+.vscode
+.settings
+bin
+out
+.classpath
+.project
+MoreCommands.iml
