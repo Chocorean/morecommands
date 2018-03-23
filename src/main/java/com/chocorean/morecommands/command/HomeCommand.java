@@ -26,6 +26,10 @@ public class HomeCommand extends AbstractCommand {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+        if (((EntityPlayerMP)sender).dimension != 0) {
+            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You must be in the overworld to teleport to your home.")));
+            return;
+        }
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader("mods/MoreCommands/home"));

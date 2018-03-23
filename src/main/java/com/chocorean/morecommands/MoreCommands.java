@@ -20,7 +20,7 @@ public class MoreCommands
 {
     public static final String MODID = "morecommands";
     public static final String NAME = "More Commands";
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.2";
     public static final String COMMON_PROXY = "com.chocorean.morecommands.proxy.CommonProxy";
     public static final String CLIENT_PROXY = "com.chocorean.morecommands.proxy.ClientProxy";
 
