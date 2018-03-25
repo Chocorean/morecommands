@@ -33,7 +33,7 @@ public class WarpCommand extends AbstractCommand {
         }
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("mods/MoreCommands/warp"));
+            reader = new BufferedReader(new FileReader("config/MoreCommands/warp"));
             String line = reader.readLine();
             while (line != null) {
                 if (line.contains(args[0])) {

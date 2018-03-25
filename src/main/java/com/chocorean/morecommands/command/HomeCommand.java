@@ -1,5 +1,6 @@
 package com.chocorean.morecommands.command;
 
+import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.misc.PosPlayer;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -32,7 +33,7 @@ public class HomeCommand extends AbstractCommand {
         }
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("mods/MoreCommands/home"));
+            reader = new BufferedReader(new FileReader("config/MoreCommands/home"));
             String line=reader.readLine();
             while (line != null) {
                 if (line.split(" ")[0].equals(sender.getName())) {
@@ -48,6 +49,7 @@ public class HomeCommand extends AbstractCommand {
                     ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Teleported to home.")));
                     return;
                 }
+                line=reader.readLine();
             }
             // if we come here, player has no home
             ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You are homeless.")));

@@ -27,7 +27,7 @@ public class WarpsCommand extends AbstractCommand {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("mods/MoreCommands/warp"));
+            reader = new BufferedReader(new FileReader("config/MoreCommands/warp"));
             String line = reader.readLine();
             ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("List of available warps :")));
 

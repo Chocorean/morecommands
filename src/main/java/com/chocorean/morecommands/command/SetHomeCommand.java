@@ -37,14 +37,14 @@ public class SetHomeCommand extends AbstractCommand {
         PrintWriter writer;
 
         try {
-            reader = new BufferedReader(new FileReader("mods/MoreCommands/home"));
-            writer = new PrintWriter(new FileWriter("mods/MoreCommands/home.tmp"));
+            reader = new BufferedReader(new FileReader("config/MoreCommands/home"));
+            writer = new PrintWriter(new FileWriter("config/MoreCommands/home.tmp"));
             String line = reader.readLine();
             boolean hasBeenReplaced=false;
             while (line != null) {
                 if (line.contains(sender.getName())) {
                     // if registered home, replacing older location by the newer
-                    line = sender.getName() +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ();
+                    line = sender.getName() +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ() + "\n";
                     hasBeenReplaced=true;
                 }
                 writer.write(line);
@@ -57,11 +57,11 @@ public class SetHomeCommand extends AbstractCommand {
             writer.close();
 
             // now remove older and rename newer
-            if (!new File("mods/MoreCommands/home").delete()) {
+            if (!new File("config/MoreCommands/home").delete()) {
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }
-            if (!new File("mods/MoreCommands/home.tmp").renameTo(new File("mods/MoreCommands/home"))){
+            if (!new File("config/MoreCommands/home.tmp").renameTo(new File("config/MoreCommands/home"))){
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }

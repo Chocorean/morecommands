@@ -20,7 +20,7 @@ public class MoreCommands
 {
     public static final String MODID = "morecommands";
     public static final String NAME = "More Commands";
-    public static final String VERSION = "1.2";
+    public static final String VERSION = "1.3";
     public static final String COMMON_PROXY = "com.chocorean.morecommands.proxy.CommonProxy";
     public static final String CLIENT_PROXY = "com.chocorean.morecommands.proxy.ClientProxy";
 
@@ -31,24 +31,24 @@ public class MoreCommands
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        File dir = new File("mods/MoreCommands");
+        File dir = new File("config/MoreCommands");
         if (!dir.exists())
             if (!dir.mkdir()) {
                 LOGGER.warning("Cannot create config folder. Things gonna be great.");
             }
-        if (!new File("mods/MoreCommands/home").exists()) {
+        if (!new File("config/MoreCommands/home").exists()) {
             PrintWriter writer;
             try {
-                writer = new PrintWriter("mods/MoreCommands/home");
+                writer = new PrintWriter("config/MoreCommands/home");
                 writer.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        if (!new File("mods/MoreCommands/warp").exists()) {
+        if (!new File("config/MoreCommands/warp").exists()) {
             PrintWriter writer;
             try {
-                writer = new PrintWriter("mods/MoreCommands/warp");
+                writer = new PrintWriter("config/MoreCommands/warp");
                 writer.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

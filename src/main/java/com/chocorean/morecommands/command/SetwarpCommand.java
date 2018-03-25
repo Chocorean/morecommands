@@ -32,8 +32,8 @@ public class SetwarpCommand extends AbstractCommand {
         BufferedReader reader;
         PrintWriter writer;
         try {
-            reader = new BufferedReader(new FileReader("mods/MoreCommands/warp"));
-            writer = new PrintWriter(new FileWriter("mods/MoreCommands/warp.tmp"));
+            reader = new BufferedReader(new FileReader("config/MoreCommands/warp"));
+            writer = new PrintWriter(new FileWriter("config/MoreCommands/warp.tmp"));
             String line = reader.readLine();
             boolean hasBeenReplaced=false;
             while (line != null) {
@@ -52,11 +52,11 @@ public class SetwarpCommand extends AbstractCommand {
             writer.close();
 
             // now remove older and rename newer
-            if (!new File("mods/MoreCommands/warp").delete()) {
+            if (!new File("config/MoreCommands/warp").delete()) {
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }
-            if (!new File("mods/MoreCommands/warp.tmp").renameTo(new File("mods/MoreCommands/warp"))){
+            if (!new File("config/MoreCommands/warp.tmp").renameTo(new File("config/MoreCommands/warp"))){
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }
