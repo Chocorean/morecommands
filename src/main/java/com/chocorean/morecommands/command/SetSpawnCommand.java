@@ -28,6 +28,6 @@ public class SetSpawnCommand extends AbstractCommand {
     @Override
     public int getRequiredPermissionLevel()
     {
-        return 4;
+        return 3;
     }
 }

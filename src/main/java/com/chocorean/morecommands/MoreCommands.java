@@ -3,6 +3,7 @@ package com.chocorean.morecommands;
 import com.chocorean.morecommands.command.*;
 import com.chocorean.morecommands.proxy.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,28 +14,28 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = MoreCommands.MODID, name = MoreCommands.NAME, version = MoreCommands.VERSION, serverSideOnly = true, acceptableRemoteVersions = "*")
 public class MoreCommands
 {
     public static final String MODID = "morecommands";
     public static final String NAME = "More Commands";
-    public static final String VERSION = "1.3";
+    public static final String VERSION = "1.4";
     public static final String COMMON_PROXY = "com.chocorean.morecommands.proxy.CommonProxy";
     public static final String CLIENT_PROXY = "com.chocorean.morecommands.proxy.ClientProxy";
 
     @SidedProxy(clientSide = MoreCommands.CLIENT_PROXY, serverSide = MoreCommands.COMMON_PROXY)
     public static CommonProxy proxy;
 
-    public static final Logger LOGGER = Logger.getLogger(MoreCommands.MODID);
+    public static final Logger LOGGER = FMLLog.getLogger();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         File dir = new File("config/MoreCommands");
         if (!dir.exists())
             if (!dir.mkdir()) {
-                LOGGER.warning("Cannot create config folder. Things gonna be great.");
+                LOGGER.error("Cannot create config folder. Things gonna be great.");
             }
         if (!new File("config/MoreCommands/home").exists()) {
             PrintWriter writer;
@@ -64,29 +65,33 @@ public class MoreCommands
 
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
-        LOGGER.info("Registering MoreCommands Event Handler");
+        LOGGER.info("Adding MoreCommands Event Handler");
         MinecraftForge.EVENT_BUS.register(new Handler());
-        LOGGER.info("Registering MoreCommands /spawn Command");
+        LOGGER.info("Adding /spawn");
         event.registerServerCommand(new SpawnCommand());
-        LOGGER.info("Registering AuthMod /setspawn Command");
+        LOGGER.info("Adding /setspawn");
         event.registerServerCommand(new SetSpawnCommand());
-        LOGGER.info("Registering MoreCommands /home Command");
+        LOGGER.info("Adding /home");
         event.registerServerCommand(new HomeCommand());
-        LOGGER.info("Registering AuthMod /sethome Command");
+        LOGGER.info("Adding /sethome");
         event.registerServerCommand(new SetHomeCommand());
-        LOGGER.info("Registering MoreCommands /back Command");
+        LOGGER.info("Adding /back");
         event.registerServerCommand(new BackCommand());
-        LOGGER.info("Registering AuthMod /afk Command");
+        LOGGER.info("Adding /afk");
         event.registerServerCommand(new AFKCommand());
-        LOGGER.info("Registering MoreCommands /tpa Command");
+        LOGGER.info("Adding /tpa");
         event.registerServerCommand(new TpaCommand());
-        LOGGER.info("Registering AuthMod /tpahere Command");
+        LOGGER.info("Adding /tpahere");
         event.registerServerCommand(new TpaHereCommand());
-        LOGGER.info("Registering AuthMod /warps Command");
+        LOGGER.info("Adding /warps");
         event.registerServerCommand(new WarpsCommand());
-        LOGGER.info("Registering AuthMod /warp Command");
+        LOGGER.info("Adding /warp");
         event.registerServerCommand(new WarpCommand());
-        LOGGER.info("Registering AuthMod /setwarp Command");
+        LOGGER.info("Adding /setwarp");
         event.registerServerCommand(new SetwarpCommand());
+        LOGGER.info("Adding /vanish");
+        event.registerServerCommand(new VanishCommand());
+        LOGGER.info("Adding /invsee");
+        event.registerServerCommand(new InvSeeCommand());
     }
 }

@@ -18,13 +18,14 @@ public class SetwarpCommand extends AbstractCommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/setwarp <warp>";
+        return "/setwarp <name>";
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length != 1) {
             ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid number of arguments.")));
+            return;
         }
         int dim = ((EntityPlayerMP)sender).dimension;
         BlockPos pos = sender.getPosition();
@@ -71,6 +72,7 @@ public class SetwarpCommand extends AbstractCommand {
     @Override
     public int getRequiredPermissionLevel()
     {
-        return 4;
+        return 3;
     }
+
 }
