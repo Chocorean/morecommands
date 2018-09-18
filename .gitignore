@@ -9,4 +9,5 @@ bin
 out
 .classpath
 .project
-MoreCommands.iml
+*.iml
+classes

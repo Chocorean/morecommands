@@ -9,12 +9,12 @@ import net.minecraft.util.text.TextComponentString;
 
 public class VanishCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "vanish";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/vanish";
     }
 

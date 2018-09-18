@@ -6,7 +6,6 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +13,22 @@ public abstract class AbstractCommand extends CommandBase implements ICommand {
     private final ArrayList<String> aliases;
 
     AbstractCommand(){
-        aliases = new ArrayList<String>();
+        aliases = new ArrayList<>();
     }
 
     @Override
-    public List<String> getCommandAliases() {
+    public List<String> getAliases() {
         return aliases;
     }
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return true;
+        return this.getRequiredPermissionLevel() == 0;
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        return new ArrayList<String>();
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+        return new ArrayList<>();
     }
 
     @Override
@@ -39,7 +38,7 @@ public abstract class AbstractCommand extends CommandBase implements ICommand {
 
     @Override
     public int compareTo(ICommand iCommand) {
-        return this.getCommandName().compareTo(iCommand.getCommandName());
+        return this.getName().compareTo(iCommand.getName());
     }
 
     @Override

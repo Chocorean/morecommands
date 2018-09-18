@@ -16,12 +16,12 @@ import java.io.IOException;
 
 public class HomeCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "home";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/home - Teleport to your home";
     }
 

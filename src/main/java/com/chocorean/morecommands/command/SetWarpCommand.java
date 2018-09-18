@@ -10,14 +10,14 @@ import net.minecraft.util.text.TextComponentString;
 
 import java.io.*;
 
-public class SetwarpCommand extends AbstractCommand {
+public class SetWarpCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "setwarp";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/setwarp <name>";
     }
 
@@ -61,8 +61,6 @@ public class SetwarpCommand extends AbstractCommand {
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

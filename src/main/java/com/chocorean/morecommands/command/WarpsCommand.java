@@ -14,12 +14,12 @@ import java.io.IOException;
 
 public class WarpsCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "warps";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/warps - Displays a list of available warps";
     }
 
@@ -36,8 +36,6 @@ public class WarpsCommand extends AbstractCommand {
                 line = reader.readLine();
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

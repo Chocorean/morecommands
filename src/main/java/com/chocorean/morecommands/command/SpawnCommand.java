@@ -5,25 +5,26 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
 public class SpawnCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "spawn";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/spawn";
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (!sender.getEntityWorld().isRemote){
-            ((EntityPlayerMP)sender).addChatComponentMessage(new TextComponentString("Teleporting to spawn..."));
+            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Teleporting to spawn...")));
             for (PosPlayer pp : BackCommand.players) {
                 if (pp.player.getName().equals(sender.getName())){
                     pp.position = sender.getPosition();

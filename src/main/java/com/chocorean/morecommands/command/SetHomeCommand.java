@@ -12,12 +12,12 @@ import java.io.*;
 
 public class SetHomeCommand extends AbstractCommand {
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "sethome";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/sethome - Define your home";
     }
 
@@ -65,8 +65,6 @@ public class SetHomeCommand extends AbstractCommand {
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
                 return;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -77,8 +77,6 @@ public class MoreCommands
         event.registerServerCommand(new SetHomeCommand());
         LOGGER.info("Adding /back");
         event.registerServerCommand(new BackCommand());
-        LOGGER.info("Adding /afk");
-        event.registerServerCommand(new AFKCommand());
         LOGGER.info("Adding /tpa");
         event.registerServerCommand(new TpaCommand());
         LOGGER.info("Adding /tpahere");
@@ -88,7 +86,7 @@ public class MoreCommands
         LOGGER.info("Adding /warp");
         event.registerServerCommand(new WarpCommand());
         LOGGER.info("Adding /setwarp");
-        event.registerServerCommand(new SetwarpCommand());
+        event.registerServerCommand(new SetWarpCommand());
         LOGGER.info("Adding /vanish");
         event.registerServerCommand(new VanishCommand());
         LOGGER.info("Adding /invsee");

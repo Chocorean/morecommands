@@ -1,6 +1,5 @@
 package com.chocorean.morecommands;
 
-import com.chocorean.morecommands.command.AFKCommand;
 import com.chocorean.morecommands.command.BackCommand;
 import com.chocorean.morecommands.misc.PosPlayer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +23,6 @@ public class Handler {
     public static void onLeave(PlayerEvent.PlayerLoggedOutEvent event){
         if (!event.player.getEntityWorld().isRemote){
             EntityPlayer player = event.player;
-
-            // AFK command
-            AFKCommand.players.remove(player);
 
             // Back command
             for (PosPlayer pp : BackCommand.players) {

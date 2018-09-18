@@ -16,19 +16,19 @@ import java.util.List;
 
 public class InvSeeCommand extends AbstractCommand{
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "invsee";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/invsee <player>";
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        ArrayList<String> list = new ArrayList<String>();
-        list.addAll(Arrays.asList(server.getPlayerList().getAllUsernames()));
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(Arrays.asList(server.getPlayerList().getOnlinePlayerNames()));
         list.remove(sender.getName());
         return list;
     }
@@ -40,12 +40,14 @@ public class InvSeeCommand extends AbstractCommand{
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         if (args.length != 1) {
             ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid number of arguments.")));
             return;
         }
-        IInventory inventory = server.getPlayerList().getPlayerByUsername(args[0]).inventory;
-        ((EntityPlayerMP)sender).displayGUIChest(inventory);
+        EntityPlayerMP target = server.getPlayerList().getPlayerByUsername(args[0]);
+        if (target == null) return;
+        IInventory targetInventory = target.inventory;
+        ((EntityPlayerMP)sender).displayGUIChest(targetInventory);
     }
 }

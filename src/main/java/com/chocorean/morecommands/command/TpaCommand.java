@@ -25,19 +25,19 @@ public class TpaCommand extends AbstractCommand {
         requests = new ArrayList<TpaRequest>();
     }
     @Override
-    public String getCommandName() {
+    public String getName() {
         return "tpa";
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getUsage(ICommandSender sender) {
         return "/tpa <targetPlayer> - Ask the target if you can teleport to him.";
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         ArrayList<String> list = new ArrayList<String>();
-        list.addAll(Arrays.asList(server.getPlayerList().getAllUsernames()));
+        list.addAll(Arrays.asList(server.getPlayerList().getOnlinePlayerNames()));
         list.remove(sender.getName());
         return list;
     }
@@ -76,7 +76,6 @@ public class TpaCommand extends AbstractCommand {
                 }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
                 ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You can't ask yourself to teleport to you.")));
-                return;
             } else { // on essaie de se tp
                 if (sender.getEntityWorld().playerEntities.contains(sender.getEntityWorld().getPlayerEntityByName(args[0]))) {
                     // le joueur existe
@@ -84,7 +83,6 @@ public class TpaCommand extends AbstractCommand {
                 } else {
                     // le joueur n'existe pas
                     ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid argument.")));
-                    return;
                 }
             }
         }
