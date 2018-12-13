@@ -1,5 +1,11 @@
 package com.chocorean.morecommands.command;
 
+import com.chocorean.morecommands.MoreCommands;
+import com.chocorean.morecommands.exception.NoHomeException;
+import com.chocorean.morecommands.model.Home;
+import com.chocorean.morecommands.storage.StorageModule;
+import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -8,9 +14,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.*;
+import java.sql.SQLException;
 
-public class SetHomeCommand extends AbstractCommand {
+public class SetHomeCommand extends CommandBase {
+    private final StorageModule storage;
+
+    public SetHomeCommand(IDataSourceStrategy strategy) {
+        storage = new StorageModule(strategy);
+    }
+
     @Override
     public String getName() {
         return "sethome";
@@ -18,56 +30,28 @@ public class SetHomeCommand extends AbstractCommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/sethome - Define your home";
+        return MoreCommands.getConfig().getSethomeUsage();
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (((EntityPlayerMP)sender).dimension != 0) {
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You must be in the overworld to set your home.")));
-            return;
+        EntityPlayerMP p = (EntityPlayerMP)sender;
+        if (p.dimension != 0) {
+            throw new NoHomeException();
         }
-        if (args.length != 0){
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid number of arguments.")));
-            return;
-        }
-        BlockPos pos = sender.getPosition();
-
-        BufferedReader reader;
-        PrintWriter writer;
-
+        BlockPos pos = p.getPosition();
+        Home home = new Home(p.getName(), pos, p.rotationYaw, p.rotationPitch);
         try {
-            reader = new BufferedReader(new FileReader("config/MoreCommands/home"));
-            writer = new PrintWriter(new FileWriter("config/MoreCommands/home.tmp"));
-            String line = reader.readLine();
-            boolean hasBeenReplaced=false;
-            while (line != null) {
-                if (line.contains(sender.getName())) {
-                    // if registered home, replacing older location by the newer
-                    line = sender.getName() +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ() + "\n";
-                    hasBeenReplaced=true;
-                }
-                writer.write(line);
-                line = reader.readLine();
-            }
-            if (!hasBeenReplaced){
-                writer.write(sender.getName() +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ()+"\n");
-            }
-            reader.close();
-            writer.close();
-
-            // now remove older and rename newer
-            if (!new File("config/MoreCommands/home").delete()) {
-                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
-                return;
-            }
-            if (!new File("config/MoreCommands/home.tmp").renameTo(new File("config/MoreCommands/home"))){
-                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
-                return;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.storage.registerHome(home);
+            p.connection.sendPacket(new SPacketChat(new TextComponentString("Home has been set.")));
+        } catch (SQLException e) {
+            MoreCommands.LOGGER.error(e);
         }
-        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Home has been set.")));
+    }
+
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
+    {
+        return true;
     }
 }

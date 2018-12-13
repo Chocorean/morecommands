@@ -1,16 +1,30 @@
 package com.chocorean.morecommands.command;
 
+import com.chocorean.morecommands.MoreCommands;
+import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
+import com.chocorean.morecommands.model.Warp;
+import com.chocorean.morecommands.storage.StorageModule;
+import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.UserListOps;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.*;
+import java.sql.SQLException;
 
-public class SetWarpCommand extends AbstractCommand {
+public class SetWarpCommand extends CommandBase {
+    private final StorageModule storage;
+
+    public SetWarpCommand(IDataSourceStrategy strategy) {
+        storage = new StorageModule(strategy);
+    }
+
     @Override
     public String getName() {
         return "setwarp";
@@ -18,59 +32,37 @@ public class SetWarpCommand extends AbstractCommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/setwarp <name>";
+        return MoreCommands.getConfig().getSetwarpUsage();
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length != 1) {
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid number of arguments.")));
-            return;
+            throw new InvalidNumberOfArgumentsException();
         }
-        int dim = ((EntityPlayerMP)sender).dimension;
+        EntityPlayerMP p = (EntityPlayerMP)sender;
+        int dim = p.dimension;
         BlockPos pos = sender.getPosition();
-
-        BufferedReader reader;
-        PrintWriter writer;
+        Warp warp = new Warp(args[0], pos, dim, p.rotationYaw, p.rotationPitch);
         try {
-            reader = new BufferedReader(new FileReader("config/MoreCommands/warp"));
-            writer = new PrintWriter(new FileWriter("config/MoreCommands/warp.tmp"));
-            String line = reader.readLine();
-            boolean hasBeenReplaced=false;
-            while (line != null) {
-                if (line.contains(args[0])) {
-                    // if registered warp, replacing older location by the newer
-                    line = args[0] +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ() + " " + dim + "\n";
-                    hasBeenReplaced=true;
-                }
-                writer.write(line);
-                line = reader.readLine();
-            }
-            if (!hasBeenReplaced){
-                writer.write(args[0] +" "+pos.getX()+" "+pos.getY()+" "+pos.getZ() + " " + dim + "\n");
-            }
-            reader.close();
-            writer.close();
-
-            // now remove older and rename newer
-            if (!new File("config/MoreCommands/warp").delete()) {
-                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
-                return;
-            }
-            if (!new File("config/MoreCommands/warp.tmp").renameTo(new File("config/MoreCommands/warp"))){
-                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Internal error. Please contact an administrator.")));
-                return;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.storage.registerWarp(warp);
+            p.connection.sendPacket(new SPacketChat(new TextComponentString("Warp "+args[0]+ " has been set.")));
+        } catch (SQLException e) {
+            MoreCommands.LOGGER.error(e);
+            p.connection.sendPacket(new SPacketChat(new TextComponentString("Warp "+args[0]+ " could not be set.")));
         }
-        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Warp "+args[0]+ " has been set.")));
     }
 
     @Override
-    public int getRequiredPermissionLevel()
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
     {
-        return 3;
+        UserListOps ops = server.getPlayerList().getOppedPlayers();
+        GameProfile gp = ops.getGameProfileFromName(sender.getName());
+        try {
+            gp.getName(); // can trigger NPE
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
-
 }

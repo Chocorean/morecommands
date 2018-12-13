@@ -1,8 +1,9 @@
 package com.chocorean.morecommands;
 
 import com.chocorean.morecommands.command.BackCommand;
-import com.chocorean.morecommands.misc.PosPlayer;
+import com.chocorean.morecommands.model.PlayerPos;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -15,28 +16,15 @@ public class Handler {
             EntityPlayer player = event.player;
 
             // Back command
-            BackCommand.players.add(new PosPlayer(player,player.getPosition()));
+            PlayerPos firstPos = new PlayerPos(player.getPosition(), player.dimension, player.rotationYaw, player.rotationPitch);
+            BackCommand.backList.put(player.getName(), firstPos);
         }
     }
 
     @SubscribeEvent
     public static void onLeave(PlayerEvent.PlayerLoggedOutEvent event){
-        if (!event.player.getEntityWorld().isRemote){
-            EntityPlayer player = event.player;
-
-            // Back command
-            for (PosPlayer pp : BackCommand.players) {
-                if (pp.player.equals(player)) {
-                    BackCommand.players.remove(pp);
-                    break;
-                }
-            }
-
-            // Tpa command
-
-
-            // Tpahere command
-
-        }
+        EntityPlayerMP player = (EntityPlayerMP) event.player;
+        BackCommand.backList.remove(player.getName());
+        MoreCommands.handler.clean(player);
     }
 }

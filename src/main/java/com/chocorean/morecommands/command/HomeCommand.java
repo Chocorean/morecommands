@@ -1,20 +1,26 @@
 package com.chocorean.morecommands.command;
 
 import com.chocorean.morecommands.MoreCommands;
-import com.chocorean.morecommands.misc.PosPlayer;
+import com.chocorean.morecommands.exception.HomeNotFoundException;
+import com.chocorean.morecommands.exception.HomeWrongDimensionException;
+import com.chocorean.morecommands.model.IHome;
+import com.chocorean.morecommands.model.PlayerPos;
+import com.chocorean.morecommands.storage.StorageModule;
+import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.math.BlockPos;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+public class HomeCommand extends CommandBase {
+    private final StorageModule storage;
 
-public class HomeCommand extends AbstractCommand {
+    public HomeCommand(IDataSourceStrategy strategy) {
+        storage = new StorageModule(strategy);
+    }
+
     @Override
     public String getName() {
         return "home";
@@ -22,42 +28,26 @@ public class HomeCommand extends AbstractCommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/home - Teleport to your home";
+        return MoreCommands.getConfig().getHomeUsage();
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (((EntityPlayerMP)sender).dimension != 0) {
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You must be in the overworld to teleport to your home.")));
-            return;
-        }
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader("config/MoreCommands/home"));
-            String line=reader.readLine();
-            while (line != null) {
-                if (line.split(" ")[0].equals(sender.getName())) {
-                    reader.close();
-                    // updating last position for back
-                    for (PosPlayer pp : BackCommand.players) {
-                        if (pp.player.getName().equals(sender.getName())){
-                            pp.position = sender.getPosition();
-                        }
-                    }
-                    String[] infos = line.split(" ");
-                    ((EntityPlayerMP)sender).setPositionAndUpdate(Double.parseDouble(infos[1]), Double.parseDouble(infos[2]), Double.parseDouble(infos[3]));
-                    ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Teleported to home.")));
-                    return;
-                }
-                line=reader.readLine();
-            }
-            // if we come here, player has no home
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("You are homeless.")));
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        EntityPlayerMP p = (EntityPlayerMP) sender;
+        IHome home = this.storage.findHome(p.getName());
+        if (home == null) throw new HomeNotFoundException();
+        if (p.dimension != 0) throw new HomeWrongDimensionException();
+        PlayerPos newLastPos = new PlayerPos(p.getPosition(), 0, p.rotationYaw, p.rotationPitch);
+        BackCommand.backList.put(p.getName(), newLastPos);
+        // on tp
+        BlockPos bp = home.getPosition();
+        p.connection.setPlayerLocation(bp.getX(), bp.getY(), bp.getZ(), home.getYaw(), home.getPitch());
+        p.setRotationYawHead(home.getYaw());
+    }
+
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
+    {
+        return true;
     }
 }

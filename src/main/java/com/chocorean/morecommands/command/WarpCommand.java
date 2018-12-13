@@ -1,20 +1,31 @@
 package com.chocorean.morecommands.command;
 
-import com.chocorean.morecommands.misc.PosPlayer;
+import com.chocorean.morecommands.MoreCommands;
+import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
+import com.chocorean.morecommands.model.IWarp;
+import com.chocorean.morecommands.storage.StorageModule;
+import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.annotation.Nullable;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class WarpCommand extends AbstractCommand {
+public class WarpCommand extends CommandBase {
+    private final StorageModule storage;
+
+    public WarpCommand(IDataSourceStrategy strategy) {
+        storage = new StorageModule(strategy);
+    }
+
     @Override
     public String getName() {
         return "warp";
@@ -22,40 +33,38 @@ public class WarpCommand extends AbstractCommand {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/warp <warp>";
+        return MoreCommands.getConfig().getWarpUsage();
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length != 1) {
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Invalid number of arguments.")));
-            return;
+            throw new InvalidNumberOfArgumentsException();
         }
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader("config/MoreCommands/warp"));
-            String line = reader.readLine();
-            while (line != null) {
-                if (line.contains(args[0])) {
-                    // updating last position for back
-                    for (PosPlayer pp : BackCommand.players) {
-                        if (pp.player.getName().equals(sender.getName())){
-                            pp.position = sender.getPosition();
-                            break;
-                        }
-                    }
-                    String[] infos = line.split(" ");
-                    ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Warping to "+infos[0]+"...")));
-                    if (((EntityPlayerMP) sender).dimension != Integer.parseInt(infos[4]))
-                        ((EntityPlayerMP) sender).changeDimension(Integer.parseInt(infos[4]));
-                    ((EntityPlayer)sender).setPositionAndUpdate(Double.parseDouble(infos[1]), Double.parseDouble(infos[2]), Double.parseDouble(infos[3]));
-                    break;
-                }
-                line = reader.readLine();
+        IWarp warp = this.storage.findWarp(args[0]);
+        if (warp != null) {
+            EntityPlayerMP p = (EntityPlayerMP)sender;
+            if (warp.getDimension() != p.dimension) {
+                p.changeDimension(warp.getDimension());
             }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            BlockPos pos = warp.getPosition();
+            p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
+            p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getOnWarpMessage())));
         }
+    }
+
+    @Override
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+        try {
+            return this.storage.listWarps();
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
+    {
+        return true;
     }
 }
