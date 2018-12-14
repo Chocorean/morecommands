@@ -59,8 +59,9 @@ public class TpaHereCommand extends CommandBase {
                 }
             } else if (args[0].equals("yes")){
                 try {
-                    BlockPos pos = this.handler.getSrcForTpa(p.getName()).getPosition();
-                    p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
+                    EntityPlayerMP playerToTp = this.handler.getSrcForTpa(p.getName());
+                    BlockPos pos = p.getPosition();
+                    playerToTp.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
                     p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));

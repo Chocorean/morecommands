@@ -28,7 +28,7 @@ public class SpawnCommand extends CommandBase {
         BackCommand.backList.put(sender.getName(), newLastPos);
         BlockPos spawn = server.getEntityWorld().getSpawnPoint();
         if (p.dimension != 0) p.changeDimension(0);
-        p.moveToBlockPosAndAngles(spawn, p.rotationYaw, p.rotationPitch);
+        p.connection.setPlayerLocation(spawn.getX(), spawn.getY(), spawn.getZ(), p.rotationYaw, p.rotationPitch);
         p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getOnSpawnMessage())));
     }
 

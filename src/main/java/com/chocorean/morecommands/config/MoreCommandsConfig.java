@@ -1,8 +1,8 @@
 package com.chocorean.morecommands.config;
 
+import com.chocorean.morecommands.MoreCommands;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import scala.sys.Prop;
 
 import java.io.File;
 
@@ -43,15 +43,15 @@ public class MoreCommandsConfig {
     private String onWarpMessage = "Whoosh !";
     private String onSpawnMessage = "Whoosh !";
     private String onTpaRequestSrcMessage = "A request has been sent to %s.";
-    private String onTpaRequestDestMessage = "%s would like to join you. Type /tpahere yes/no to answer.";
-    private String onTpahereRequestSrcMessage = "%s would like you to join him. Type /tpa yes/no to answer.";
+    private String onTpaRequestDestMessage = "%s would like to join you. Type /tpahere <yes|no> to answer.";
+    private String onTpahereRequestSrcMessage = "%s would like you to join him. Type /tpa <yes|no> to answer.";
     private String onTpahereRequestDestMessage = "A request has been sent to %s.";
-    private String onTpDenyMessage = "%s denies your request.";
+    private String onTpDenyMessage = "%s denied your request.";
     private String onHomeWrongDimensionMessage = "You must be in the overworld to use /home.";
     private String onHomeSetMessage = "Your home has been set.";
 
     // database
-    private String storageStrategy = "DATABASE";
+    private String storageStrategy = "FILE";
     private String dialect = "mariadb";
     private String host = "localhost";
     private String port = "3306";
@@ -69,7 +69,7 @@ public class MoreCommandsConfig {
         this.config = config;
         this.config.load();
 
-        config.addCustomCategoryComment(CATEGORY_GENERAL, "MoreCommands v1.5\n"+
+        config.addCustomCategoryComment(CATEGORY_GENERAL, "MoreCommands v" + MoreCommands.VERSION + "\n"+
                 " Github link\n" +
                 "  - https://github.com/Chocorean/morecommands\n" +
                 " Authors\n" +
