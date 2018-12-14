@@ -48,10 +48,23 @@ public class TpaCommand extends CommandBase {
         if (args.length != 1){
             throw new InvalidNumberOfArgumentsException();
         } else {
+            EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
-                // TODO
+                try {
+                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format(MoreCommands.getConfig().getOnTpDenyMessage(),p.getName()))));
+                    // suppression
+                    this.handler.rmTpah(p.getName());
+                } catch (NullPointerException e) {
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                }
             } else if (args[0].equals("yes")){
-                // TODO
+                try {
+                    BlockPos pos = this.handler.getDestForTpah(p.getName()).getPosition();
+                    p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
+                    this.handler.rmTpah(p.getName());
+                } catch (NullPointerException e) {
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
                 throw new CommandException("You can't ask yourself to teleport to you.");
             } else { // on essaie de se tp
@@ -59,7 +72,7 @@ public class TpaCommand extends CommandBase {
                 EntityPlayerMP dest = (EntityPlayerMP) sender.getEntityWorld().getPlayerEntityByName(args[0]);
                 if (dest != null) {
                     // le joueur existe
-                    handler.addTpa(dest, src);
+                    handler.addTpa(dest.getName(), src);
                     dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
                             MoreCommands.getConfig().getOnTpaRequestDestMessage(),
                             src.getName()))));

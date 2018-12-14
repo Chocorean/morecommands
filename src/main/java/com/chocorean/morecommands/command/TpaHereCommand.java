@@ -2,6 +2,7 @@ package com.chocorean.morecommands.command;
 
 import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
+import com.chocorean.morecommands.exception.PlayerNotFoundException;
 import com.chocorean.morecommands.misc.TpHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -47,18 +48,40 @@ public class TpaHereCommand extends CommandBase {
         if (args.length != 1) {
             throw new InvalidNumberOfArgumentsException();
         } else {
+            EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
-                this.handler.rmTpa((EntityPlayerMP)sender);
-                // message a src
-                this.handler.getSrcForTpa((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getOnTpDenyMessage())));
+                try {
+                    this.handler.getSrcForTpa(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format(MoreCommands.getConfig().getOnTpDenyMessage(),p.getName()))));
+                    // suppression
+                    this.handler.rmTpa(p.getName());
+                } catch (NullPointerException e) {
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                }
             } else if (args[0].equals("yes")){
-                BlockPos pos = this.handler.getSrcForTpa((EntityPlayerMP)sender).getPosition();
-                ((EntityPlayerMP) sender).moveToBlockPosAndAngles(pos, ((EntityPlayerMP) sender).cameraYaw, ((EntityPlayerMP) sender).cameraPitch);
-                this.handler.rmTpa((EntityPlayerMP)sender);
+                try {
+                    BlockPos pos = this.handler.getSrcForTpa(p.getName()).getPosition();
+                    p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
+                    this.handler.rmTpa(p.getName());
+                } catch (NullPointerException e) {
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
                 throw new CommandException("You can't ask yourself to teleport to you.");
             } else { // on essaie de tp
-                // TODO
+                EntityPlayerMP src = (EntityPlayerMP) p.getEntityWorld().getPlayerEntityByName(args[0]);
+                EntityPlayerMP dest = p;
+                if (src != null) {
+                    // le joueur existe
+                    handler.addTpah(src.getName(), dest);
+                    src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
+                            MoreCommands.getConfig().getOnTpahereRequestSrcMessage(),
+                            dest.getName()))));
+                    dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
+                            MoreCommands.getConfig().getOnTpahereRequestDestMessage(),
+                            src.getName()))));
+                } else {
+                    throw new PlayerNotFoundException(args[0]);
+                }
             }
         }
     }

@@ -25,6 +25,6 @@ public class Handler {
     public static void onLeave(PlayerEvent.PlayerLoggedOutEvent event){
         EntityPlayerMP player = (EntityPlayerMP) event.player;
         BackCommand.backList.remove(player.getName());
-        MoreCommands.handler.clean(player);
+        MoreCommands.handler.clean(player.getName());
     }
 }
