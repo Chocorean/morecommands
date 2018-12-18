@@ -21,13 +21,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DatabaseSourceStrategy implements IDataSourceStrategy {
-    private final IHomeDAO<IHome> homesDAO;
-    private final IWarpDAO<IWarp> warpsDAO;
+    private final HomeDAO<Home> homesDAO;
+    private final WarpDAO<Warp> warpsDAO;
     private final Logger LOGGER = FMLLog.log;
 
     public DatabaseSourceStrategy(MoreCommandsConfig config) {
-        this.homesDAO = new HomeDAO<Home>(config.getHomeTable());
-        this.warpsDAO = new WarpDAO<Warp>(config.getWarpTable());
+        this.homesDAO = new HomeDAO<>(config.getHomeTable());
+        this.warpsDAO = new WarpDAO<>(config.getWarpTable());
     }
 
     @Override
