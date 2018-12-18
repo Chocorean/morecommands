@@ -17,7 +17,7 @@ public class WarpDAO<W> implements IWarpDAO {
     @Override
     public void create(IWarp warp) throws SQLException {
         Connection conn = ConnectionFactory.getConnection();
-        String query = String.format("INSERT INTO %s(name, x, y, z, dim) VALUES(?,?,?,?,?,?,?)", this.table);
+        String query = String.format("INSERT INTO %s(name, x, y, z, dimension, yaw, pitch) VALUES(?,?,?,?,?,?,?)", this.table);
         try(PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, warp.getName());
             stmt.setInt(2, warp.getPosition().getX());
@@ -34,7 +34,7 @@ public class WarpDAO<W> implements IWarpDAO {
     @Override
     public void modify(IWarp warp) throws SQLException {
         Connection conn = ConnectionFactory.getConnection();
-        String query = String.format("UPDATE %s SET x = ?, y = ?, z = ?, dim = ?, yaw = ?, pitch = ? WHERE name = ?", this.table);
+        String query = String.format("UPDATE %s SET x = ?, y = ?, z = ?, dimension = ?, yaw = ?, pitch = ? WHERE name = ?", this.table);
         try(PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, warp.getPosition().getX());
             stmt.setInt(2, warp.getPosition().getY());
