@@ -19,7 +19,7 @@ public class HomeDAO<H> implements IHomeDAO {
     @Override
     public void create(IHome home) throws SQLException {
         Connection conn = ConnectionFactory.getConnection();
-        String query = String.format("INSERT INTO %s(username, x, y, z) VALUES(?,?,?,?,?,?)", this.table);
+        String query = String.format("INSERT INTO %s(username, x, y, z, yaw, pitch) VALUES(?,?,?,?,?,?)", this.table);
         try(PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, home.getUsername());
             stmt.setInt(2, home.getPosition().getX());
@@ -35,7 +35,7 @@ public class HomeDAO<H> implements IHomeDAO {
     @Override
     public void modify(IHome home) throws SQLException {
         Connection conn = ConnectionFactory.getConnection();
-        String query = String.format("UPDATE %s SET x = ?, y = ?, z = ?, yaw = ?, pitch = ? WHERE name = ?", this.table);
+        String query = String.format("UPDATE %s SET x = ?, y = ?, z = ?, yaw = ?, pitch = ? WHERE username = ?", this.table);
         try(PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, home.getPosition().getX());
             stmt.setInt(2, home.getPosition().getY());
