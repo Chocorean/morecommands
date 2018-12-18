@@ -64,6 +64,7 @@ public class TpaHereCommand extends CommandBase {
                     BlockPos pos = p.getPosition();
                     PlayerPos pp = new PlayerPos(pos, playerToTp.dimension, playerToTp.rotationYaw, playerToTp.rotationPitch);
                     BackCommand.backList.put(playerToTp.getName(), pp);
+                    if (playerToTp.dimension != p.dimension) playerToTp.changeDimension(p.dimension);
                     playerToTp.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
@@ -72,7 +73,7 @@ public class TpaHereCommand extends CommandBase {
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
                 throw new CommandException("You can't ask yourself to teleport to you.");
             } else { // on essaie de tp
-                EntityPlayerMP src = (EntityPlayerMP) p.getEntityWorld().getPlayerEntityByName(args[0]);
+                EntityPlayerMP src = p.getServer().getPlayerList().getPlayerByUsername(args[0]);
                 if (src != null) {
                     // le joueur existe
                     handler.addTpah(src.getName(), p);

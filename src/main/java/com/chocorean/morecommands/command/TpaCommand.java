@@ -60,9 +60,11 @@ public class TpaCommand extends CommandBase {
                 }
             } else if (args[0].equals("yes")){
                 try {
-                    BlockPos pos = this.handler.getDestForTpah(p.getName()).getPosition();
+                    EntityPlayerMP dest = this.handler.getDestForTpah(p.getName());
+                    BlockPos pos = dest.getPosition();
                     PlayerPos pp = new PlayerPos(pos, p.dimension, p.rotationYaw, p.rotationPitch);
                     BackCommand.backList.put(p.getName(), pp);
+                    if (p.dimension != dest.dimension) p.changeDimension(dest.dimension);
                     p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
@@ -72,7 +74,7 @@ public class TpaCommand extends CommandBase {
                 throw new CommandException("You can't ask yourself to teleport to you.");
             } else { // on essaie de se tp
                 EntityPlayerMP src = (EntityPlayerMP)sender;
-                EntityPlayerMP dest = (EntityPlayerMP) sender.getEntityWorld().getPlayerEntityByName(args[0]);
+                EntityPlayerMP dest = src.getServer().getPlayerList().getPlayerByUsername(args[0]);
                 if (dest != null) {
                     // le joueur existe
                     handler.addTpa(dest.getName(), src);
