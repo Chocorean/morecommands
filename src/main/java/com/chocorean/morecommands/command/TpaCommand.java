@@ -4,6 +4,7 @@ import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
 import com.chocorean.morecommands.exception.PlayerNotFoundException;
 import com.chocorean.morecommands.misc.TpHandler;
+import com.chocorean.morecommands.model.PlayerPos;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -60,6 +61,8 @@ public class TpaCommand extends CommandBase {
             } else if (args[0].equals("yes")){
                 try {
                     BlockPos pos = this.handler.getDestForTpah(p.getName()).getPosition();
+                    PlayerPos pp = new PlayerPos(pos, p.dimension, p.rotationYaw, p.rotationPitch);
+                    BackCommand.backList.put(p.getName(), pp);
                     p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {

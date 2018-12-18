@@ -4,6 +4,7 @@ import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
 import com.chocorean.morecommands.exception.PlayerNotFoundException;
 import com.chocorean.morecommands.misc.TpHandler;
+import com.chocorean.morecommands.model.PlayerPos;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -61,6 +62,8 @@ public class TpaHereCommand extends CommandBase {
                 try {
                     EntityPlayerMP playerToTp = this.handler.getSrcForTpa(p.getName());
                     BlockPos pos = p.getPosition();
+                    PlayerPos pp = new PlayerPos(pos, playerToTp.dimension, playerToTp.rotationYaw, playerToTp.rotationPitch);
+                    BackCommand.backList.put(playerToTp.getName(), pp);
                     playerToTp.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
@@ -70,14 +73,13 @@ public class TpaHereCommand extends CommandBase {
                 throw new CommandException("You can't ask yourself to teleport to you.");
             } else { // on essaie de tp
                 EntityPlayerMP src = (EntityPlayerMP) p.getEntityWorld().getPlayerEntityByName(args[0]);
-                EntityPlayerMP dest = p;
                 if (src != null) {
                     // le joueur existe
-                    handler.addTpah(src.getName(), dest);
+                    handler.addTpah(src.getName(), p);
                     src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
                             MoreCommands.getConfig().getOnTpahereRequestSrcMessage(),
-                            dest.getName()))));
-                    dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
+                            p.getName()))));
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
                             MoreCommands.getConfig().getOnTpahereRequestDestMessage(),
                             src.getName()))));
                 } else {
