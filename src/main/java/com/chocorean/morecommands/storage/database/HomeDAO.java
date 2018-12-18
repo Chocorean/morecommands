@@ -19,7 +19,7 @@ public class HomeDAO<H> implements IHomeDAO {
     @Override
     public void create(IHome home) throws SQLException {
         Connection conn = ConnectionFactory.getConnection();
-        String query = String.format("INSERT INTO %s(username, x, y, z) VALUES(?,?,?,?,?,?)", this.table);
+        String query = String.format("INSERT INTO %s(name, x, y, z, dimension, yaw, pitch) VALUES(?,?,?,?,?,?,?)", this.table);
         try(PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, home.getUsername());
             stmt.setInt(2, home.getPosition().getX());
