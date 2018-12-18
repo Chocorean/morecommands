@@ -268,7 +268,7 @@ public class MoreCommandsConfig {
             /* database category */
             Property storageStrategyProp = config.get(MoreCommandsConfig.CATEGORY_DATABASE,
                     "storageStrategy",
-                    "DATABASE",
+                    "FILE",
                     "Choose storage strategy. Choices are \"DATABASE\" and \"FILE\".");
             storageStrategy = storageStrategyProp.getString();
 
