@@ -35,6 +35,7 @@ public class MoreCommandsConfig {
     private String vanishUsage = "/vanish - Hide you from other players (do it once more to be visible).";
     private String warpUsage = "/warp <warp name> - Warp you if the location exists.";
     private String warpsUsage = "/warps - List available warps.";
+    private String delwarpUsage = "/delwarp <warp name> - Delete specified warp.";
 
     // displayed messages
     private String databaseErrorMessage = "Unable to connect to the database.";
@@ -191,6 +192,12 @@ public class MoreCommandsConfig {
                     "/warps - List available warps.",
                     "/warps usage");
             warpsUsage = warpsUsageProp.getString();
+
+            Property delwarpUsageProp = config.get(MoreCommandsConfig.CATEGORY_USAGE,
+                    "delwarpUsage",
+                    "/delwarp <warp name> - Delete specified warp.",
+                    "/delwarp usage");
+            delwarpUsage = delwarpUsageProp.getString();
 
             /* message category */
             Property databaseErrorProp = config.get(MoreCommandsConfig.CATEGORY_MESSAGE,
@@ -405,6 +412,10 @@ public class MoreCommandsConfig {
 
     public String getVanishUsage() {
         return vanishUsage;
+    }
+
+    public String getDelwarpUsage() {
+        return delwarpUsage;
     }
 
     // message getters

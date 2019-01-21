@@ -132,6 +132,12 @@ public class FileDataSourceStrategy implements IDataSourceStrategy {
     }
 
     @Override
+    public IWarp deleteWarp(String name) {
+        this.reloadFile();
+        return this.warps.remove(name);
+    }
+
+    @Override
     public IHome retrieveHome(String username) {
         this.reloadFile();
         return this.homes.get(username);

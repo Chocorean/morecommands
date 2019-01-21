@@ -32,6 +32,11 @@ public class StorageModule implements IStorageStrategy {
     }
 
     @Override
+    public IWarp deleteWarp(String name) throws SQLException {
+        return this.strategy.deleteWarp(name);
+    }
+
+    @Override
     public IHome registerHome(IHome home) throws SQLException {
         this.strategy.addHome(home);
         return home;

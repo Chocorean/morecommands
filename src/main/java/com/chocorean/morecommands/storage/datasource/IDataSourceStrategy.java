@@ -11,6 +11,7 @@ public interface IDataSourceStrategy {
     IWarp retrieveWarp(String name) throws MoreCommandsException;
     IWarp addWarp(IWarp warp) throws SQLException;
     ArrayList<String> findAllWarps() throws SQLException;
+    IWarp deleteWarp(String name) throws SQLException;
 
     IHome retrieveHome(String username) throws MoreCommandsException;
     IHome addHome(IHome home) throws SQLException;

@@ -58,6 +58,11 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
     }
 
     @Override
+    public IWarp deleteWarp(String name) throws  SQLException {
+        return this.warpsDAO.deleteWarp(name);
+    }
+
+    @Override
     public IHome retrieveHome(String username) throws MoreCommandsException {
         IHome h;
         try {

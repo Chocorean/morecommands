@@ -78,4 +78,13 @@ public class WarpDAO<W> implements IWarpDAO {
         } while (rs.next());
         return warps;
     }
+
+    @Override
+    public IWarp deleteWarp(String name) throws SQLException {
+        Connection conn = ConnectionFactory.getConnection();
+        IWarp deletedWarp = this.findByName(name);
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery(String.format("DELETE FROM %s WHERE warpname = %s", this.table, name));
+        return deletedWarp;
+    }
 }
