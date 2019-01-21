@@ -22,7 +22,7 @@ public class MoreCommands
 {
     static final String MODID = "morecommands";
     static final String NAME = "More Commands";
-    public static final String VERSION = "1.7";
+    public static final String VERSION = "1.8";
 
     public static final Logger LOGGER = FMLLog.log;
     private static MoreCommandsConfig config;
