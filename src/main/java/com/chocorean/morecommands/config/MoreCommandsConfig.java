@@ -19,11 +19,11 @@ public class MoreCommandsConfig {
     private final MoreCommandsDatabaseConfig databaseConfig;
 
     private static final String CATEGORY_GENERAL = "general";
-    private static final String CATEGORY_DATABASE = "database";
 
     // commands
     private boolean isBackEnabled;
     private boolean isEnderchestEnabled;
+    private boolean isGamemodeEnabled;
     private boolean isHomeEnabled;
     private boolean isInvseeEnabled;
     private boolean isSpawnEnabled;
@@ -78,16 +78,9 @@ public class MoreCommandsConfig {
         } catch (IOException e) {
             MoreCommands.LOGGER.catching(e);
         }
-
-        this.usageConfig.loadProperties();
-        this.messageConfig.loadProperties();
-        this.databaseConfig.loadProperties();
-
-        if (this.config.hasChanged())
-            this.config.save();
     }
 
-    public Property getProperty(String category, String key) {
+    Property getProperty(String category, String key) {
         return this.config.get(category,
                 key,
                 this.getDefaultValue(category, key),
@@ -103,24 +96,38 @@ public class MoreCommandsConfig {
     }
 
     private void loadProperties() {
+        /*
         config.addCustomCategoryComment("", "MoreCommands v" + MoreCommands.VERSION + "\n"+
                 " Github link\n" +
                 "  - https://github.com/Chocorean/morecommands\n" +
                 " Authors\n" +
-                "   - Chocorean");
+                "   - Chocorean"); */
 
         this.isBackEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isBackEnabled").getBoolean();
         this.isEnderchestEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isEnderchestEnabled").getBoolean();
+        this.isGamemodeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isGamemodeEnabled").getBoolean();
         this.isHomeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isHomeEnabled").getBoolean();
         this.isInvseeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isInvseeEnabled").getBoolean();
         this.isSpawnEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isSpawnEnabled").getBoolean();
         this.isTpaEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isTpaEnabled").getBoolean();
         this.isVanishEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isVanishEnabled").getBoolean();
         this.isWarpEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isWarpEnabled").getBoolean();
+
+
+        this.getDatabaseConfig().loadProperties();
+        this.getMessageConfig().loadProperties();
+        this.getUsageConfig().loadProperties();
+
+        if (this.config.hasChanged())
+            this.config.save();
     }
 
     public boolean isBackEnabled() {
         return isBackEnabled;
+    }
+
+    public boolean isGamemodeEnabled() {
+        return isGamemodeEnabled;
     }
 
     public boolean isHomeEnabled() {

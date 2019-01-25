@@ -13,10 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.HashMap;
 
 public class BackCommand extends CommandBase {
-    public static HashMap<String, PlayerPos> backList;
-    public BackCommand() {
-        backList = new HashMap<>();
-    }
+    public static HashMap<String, PlayerPos> backList = new HashMap<>();
 
     @Override
     public String getName() {

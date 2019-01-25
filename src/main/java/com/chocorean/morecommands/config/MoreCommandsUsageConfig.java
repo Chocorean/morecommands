@@ -7,6 +7,7 @@ public class MoreCommandsUsageConfig {
     private String backUsage;
     private String delwarpUsage;
     private String enderchestUsage;
+    private String gamemodeUsage;
     private String homeUsage;
     private String invseeUsage;
     private String sethomeUsage;
@@ -27,6 +28,7 @@ public class MoreCommandsUsageConfig {
         this.backUsage = this.config.getProperty(CATEGORY_USAGE, "back").getString();
         this.delwarpUsage = this.config.getProperty(CATEGORY_USAGE, "delwarp").getString();
         this.enderchestUsage = this.config.getProperty(CATEGORY_USAGE, "enderchest").getString();
+        this.gamemodeUsage = this.config.getProperty(CATEGORY_USAGE, "gamemode").getString();
         this.homeUsage = this.config.getProperty(CATEGORY_USAGE, "home").getString();
         this.invseeUsage = this.config.getProperty(CATEGORY_USAGE, "invsee").getString();
         this.sethomeUsage = this.config.getProperty(CATEGORY_USAGE, "sethome").getString();
@@ -50,6 +52,10 @@ public class MoreCommandsUsageConfig {
 
     public String getEnderchestUsage() {
         return enderchestUsage;
+    }
+
+    public String getGamemodeUsage() {
+        return gamemodeUsage;
     }
 
     public String getHomeUsage() {

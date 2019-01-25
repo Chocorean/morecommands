@@ -8,6 +8,8 @@ public class MoreCommandsMessageConfig {
     private String homeNotFoundMessage;
     private String homeSetMessage;
     private String homeWrongDimensionMessage;
+    private String invalidGamemodeMessage;
+    private String onGamemodeChange;
     private String onWarpDeletion;
     private String onWarpMessage;
     private String onSpawnMessage;
@@ -26,8 +28,10 @@ public class MoreCommandsMessageConfig {
     void loadProperties() {
         this.databaseErrorMessage = config.getProperty(CATEGORY_MESSAGE, "databaseError").getString();
         this.homeNotFoundMessage = config.getProperty(CATEGORY_MESSAGE, "homeNotFound").getString();
-        this.homeSetMessage = config.getProperty(CATEGORY_MESSAGE, "homeSet").getString();
         this.homeWrongDimensionMessage = config.getProperty(CATEGORY_MESSAGE, "homeWrongDimension").getString();
+        this.invalidGamemodeMessage = config.getProperty(CATEGORY_MESSAGE, "invalidGamemode").getString();
+        this.onGamemodeChange = config.getProperty(CATEGORY_MESSAGE, "onGamemodeChange").getString();
+        this.homeSetMessage = config.getProperty(CATEGORY_MESSAGE, "onHomeSet").getString();
         this.onWarpDeletion = config.getProperty(CATEGORY_MESSAGE, "onWarpDeletion").getString();
         this.onWarpMessage = config.getProperty(CATEGORY_MESSAGE, "onWarp").getString();
         this.onSpawnMessage = config.getProperty(CATEGORY_MESSAGE, "onSpawn").getString();
@@ -54,6 +58,14 @@ public class MoreCommandsMessageConfig {
 
     public String getHomeWrongDimensionMessage() {
         return homeWrongDimensionMessage;
+    }
+
+    public String getInvalidGamemodeMessage() {
+        return invalidGamemodeMessage;
+    }
+
+    public String getOnGamemodeChangeMessage() {
+        return onGamemodeChange;
     }
 
     public String getOnSpawnMessage() {

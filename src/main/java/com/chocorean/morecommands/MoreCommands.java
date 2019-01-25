@@ -64,11 +64,17 @@ public class MoreCommands
     public void serverStarting(FMLServerStartingEvent event) {
         LOGGER.info("Adding MoreCommands Event Handler");
         MinecraftForge.EVENT_BUS.register(new Handler());
-        if (config.isSpawnEnabled()) {
-            LOGGER.info("Adding /spawn");
-            event.registerServerCommand(new SpawnCommand());
-            LOGGER.info("Adding /setspawn");
-            event.registerServerCommand(new SetSpawnCommand());
+        if (config.isBackEnabled()) {
+            LOGGER.info("Adding /back");
+            event.registerServerCommand(new BackCommand());
+        }
+        if (config.isEnderchestEnabled()) {
+            LOGGER.info("Adding /enderchest");
+            event.registerServerCommand(new EnderchestCommand());
+        }
+        if (config.isGamemodeEnabled()) {
+            LOGGER.info("Adding custom /gamemode");
+            event.registerServerCommand(new GamemodeCommand());
         }
         if (config.isHomeEnabled()) {
             LOGGER.info("Adding /home");
@@ -76,15 +82,25 @@ public class MoreCommands
             LOGGER.info("Adding /sethome");
             event.registerServerCommand(new SetHomeCommand(strategy));
         }
-        if (config.isBackEnabled()) {
-            LOGGER.info("Adding /back");
-            event.registerServerCommand(new BackCommand());
+        if (config.isInvseeEnabled()) {
+            LOGGER.info("Adding /invsee");
+            event.registerServerCommand(new InvSeeCommand());
+        }
+        if (config.isSpawnEnabled()) {
+            LOGGER.info("Adding /spawn");
+            event.registerServerCommand(new SpawnCommand());
+            LOGGER.info("Adding /setspawn");
+            event.registerServerCommand(new SetSpawnCommand());
         }
         if (config.isTpaEnabled()) {
             LOGGER.info("Adding /tpa");
             event.registerServerCommand(new TpaCommand());
             LOGGER.info("Adding /tpahere");
             event.registerServerCommand(new TpaHereCommand());
+        }
+        if (config.isVanishEnabled()) {
+            LOGGER.info("Adding /vanish");
+            event.registerServerCommand(new VanishCommand());
         }
         if (config.isWarpEnabled()) {
             LOGGER.info("Adding /warps");
@@ -95,18 +111,6 @@ public class MoreCommands
             event.registerServerCommand(new SetWarpCommand(strategy));
             LOGGER.info("Adding /delwarp");
             event.registerServerCommand(new DelWarpCommand(strategy));
-        }
-        if (config.isVanishEnabled()) {
-            LOGGER.info("Adding /vanish");
-            event.registerServerCommand(new VanishCommand());
-        }
-        if (config.isInvseeEnabled()) {
-            LOGGER.info("Adding /invsee");
-            event.registerServerCommand(new InvSeeCommand());
-        }
-        if (config.isEnderchestEnabled()) {
-            LOGGER.info("Adding /enderchest");
-            event.registerServerCommand(new EnderchestCommand());
         }
     }
 
