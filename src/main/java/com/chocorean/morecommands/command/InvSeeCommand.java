@@ -25,7 +25,7 @@ public class InvSeeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getInvseeUsage();
+        return MoreCommands.getConfig().getUsageConfig().getInvseeUsage();
     }
 
     @Override

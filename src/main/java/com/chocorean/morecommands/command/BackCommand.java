@@ -25,7 +25,7 @@ public class BackCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getBackUsage();
+        return MoreCommands.getConfig().getUsageConfig().getBackUsage();
     }
 
     @Override

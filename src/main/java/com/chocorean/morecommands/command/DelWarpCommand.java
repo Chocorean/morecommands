@@ -10,8 +10,11 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.UserListOps;
+import net.minecraft.util.text.TextComponentString;
 
 import java.sql.SQLException;
 
@@ -29,7 +32,7 @@ public class DelWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getDelwarpUsage();
+        return MoreCommands.getConfig().getUsageConfig().getDelwarpUsage();
     }
 
     @Override
@@ -37,21 +40,15 @@ public class DelWarpCommand extends CommandBase {
         if (args.length != 1) {
             throw new InvalidNumberOfArgumentsException();
         }
-        boolean doesWarpExist = false;
         try {
-            for (String warpName : this.storage.listWarps()) {
-                if (args[0].equals(warpName)) {
-                    doesWarpExist = true;
-                    break;
-                }
+            if (!this.storage.listWarps().contains(args[0])) {
+                throw new WarpNotFoundException(String.format(MoreCommands.getConfig().getMessageConfig().getWarpNotFoundMessage(),args[0]));
+            } else {
+                this.storage.deleteWarp(args[0]);
+                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format(MoreCommands.getConfig().getMessageConfig().getOnWarpDeletionMessage(), args[0]))));
             }
         } catch (SQLException e) {
-            throw new MoreCommandsException("Something wrong happened. Please contact ops.");
-        }
-        if (!doesWarpExist) {
-            throw new WarpNotFoundException(String.format(MoreCommands.getConfig().getWarpNotFoundMessage(),args[0]));
-        } else {
-
+            throw new WarpNotFoundException(args[0]);
         }
     }
 

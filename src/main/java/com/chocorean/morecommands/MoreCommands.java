@@ -33,7 +33,7 @@ public class MoreCommands
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         config = new MoreCommandsConfig(event.getSuggestedConfigurationFile());
-        switch (config.getStorageStrategy().toUpperCase()) {
+        switch (config.getDatabaseConfig().getStorageStrategy().toUpperCase()) {
             case "DATABASE":
                 MoreCommands.strategy = new DatabaseSourceStrategy(config);
                 LOGGER.info("[AuthMod] Now using DatabaseAuthenticationStrategy.");
@@ -93,6 +93,8 @@ public class MoreCommands
             event.registerServerCommand(new WarpCommand(strategy));
             LOGGER.info("Adding /setwarp");
             event.registerServerCommand(new SetWarpCommand(strategy));
+            LOGGER.info("Adding /delwarp");
+            event.registerServerCommand(new DelWarpCommand(strategy));
         }
         if (config.isVanishEnabled()) {
             LOGGER.info("Adding /vanish");

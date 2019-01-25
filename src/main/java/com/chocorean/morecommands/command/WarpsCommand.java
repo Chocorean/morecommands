@@ -32,7 +32,7 @@ public class WarpsCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getWarpsUsage();
+        return MoreCommands.getConfig().getUsageConfig().getWarpsUsage();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.chocorean.morecommands.exception;
 
+import com.chocorean.morecommands.MoreCommands;
+
 public class NoHomeException extends MoreCommandsException{
     public NoHomeException(Object... objects) {
-        super("You must be in the overworld to set your home.", objects);
+        super(MoreCommands.getConfig().getMessageConfig().getHomeNotFoundMessage(), objects);
     }
 }

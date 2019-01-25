@@ -29,7 +29,7 @@ public class EnderchestCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getEnderchestUsage();
+        return MoreCommands.getConfig().getUsageConfig().getEnderchestUsage();
     }
 
     @Override

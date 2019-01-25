@@ -26,8 +26,8 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
     private final Logger LOGGER = FMLLog.log;
 
     public DatabaseSourceStrategy(MoreCommandsConfig config) {
-        this.homesDAO = new HomeDAO<>(config.getHomeTable());
-        this.warpsDAO = new WarpDAO<>(config.getWarpTable());
+        this.homesDAO = new HomeDAO<>(config.getDatabaseConfig().getHomeTable());
+        this.warpsDAO = new WarpDAO<>(config.getDatabaseConfig().getWarpTable());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
             w = this.warpsDAO.findByName(name);
         } catch(SQLException e) {
             LOGGER.catching(Level.ERROR, e);
-            throw new WarpNotFoundException(MoreCommands.getConfig().getWarpNotFoundMessage());
+            throw new WarpNotFoundException(MoreCommands.getConfig().getMessageConfig().getWarpNotFoundMessage());
         }
         return w;
     }
@@ -69,7 +69,7 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
             h = this.homesDAO.findByUsername(username);
         } catch(SQLException e) {
             LOGGER.catching(Level.ERROR, e);
-            throw new HomeNotFoundException(MoreCommands.getConfig().getHomeNotFoundMessage());
+            throw new HomeNotFoundException(MoreCommands.getConfig().getMessageConfig().getHomeNotFoundMessage());
         }
         return h;
     }

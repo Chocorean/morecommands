@@ -2,6 +2,7 @@ package com.chocorean.morecommands.command;
 
 import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
+import com.chocorean.morecommands.exception.WarpNotFoundException;
 import com.chocorean.morecommands.model.IWarp;
 import com.chocorean.morecommands.storage.StorageModule;
 import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
@@ -33,7 +34,7 @@ public class WarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getWarpUsage();
+        return MoreCommands.getConfig().getUsageConfig().getWarpUsage();
     }
 
     @Override
@@ -42,14 +43,16 @@ public class WarpCommand extends CommandBase {
             throw new InvalidNumberOfArgumentsException();
         }
         IWarp warp = this.storage.findWarp(args[0]);
+        EntityPlayerMP p = (EntityPlayerMP)sender;
         if (warp != null) {
-            EntityPlayerMP p = (EntityPlayerMP)sender;
             if (warp.getDimension() != p.dimension) {
                 p.changeDimension(warp.getDimension());
             }
             BlockPos pos = warp.getPosition();
             p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getOnWarpMessage())));
+            p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getMessageConfig().getOnWarpMessage())));
+        } else {
+            throw new WarpNotFoundException(args[0]);
         }
     }
 

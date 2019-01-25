@@ -18,7 +18,7 @@ public class VanishCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getVanishUsage();
+        return MoreCommands.getConfig().getUsageConfig().getVanishUsage();
     }
 
     @Override

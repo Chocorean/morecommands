@@ -10,14 +10,14 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         try {
             return DriverManager.getConnection(String.format("jdbc:%s://%s:%s/%s",
-                    MoreCommands.getConfig().getDialect(),
-                    MoreCommands.getConfig().getHost(),
-                    MoreCommands.getConfig().getPort(),
-                    MoreCommands.getConfig().getDatabase()),
-                    MoreCommands.getConfig().getUser(),
-                    MoreCommands.getConfig().getPassword());
+                    MoreCommands.getConfig().getDatabaseConfig().getDialect(),
+                    MoreCommands.getConfig().getDatabaseConfig().getHost(),
+                    MoreCommands.getConfig().getDatabaseConfig().getPort(),
+                    MoreCommands.getConfig().getDatabaseConfig().getDatabase()),
+                    MoreCommands.getConfig().getDatabaseConfig().getUser(),
+                    MoreCommands.getConfig().getDatabaseConfig().getPassword());
         } catch (SQLException ex) {
-            throw new RuntimeException(MoreCommands.getConfig().getDatabaseErrorMessage(), ex);
+            throw new RuntimeException(MoreCommands.getConfig().getMessageConfig().getDatabaseErrorMessage(), ex);
         }
     }
 }

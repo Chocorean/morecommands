@@ -32,7 +32,7 @@ public class SetWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getSetwarpUsage();
+        return MoreCommands.getConfig().getUsageConfig().getSetwarpUsage();
     }
 
     @Override
