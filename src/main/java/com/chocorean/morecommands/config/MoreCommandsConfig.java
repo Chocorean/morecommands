@@ -14,13 +14,14 @@ public class MoreCommandsConfig {
     private static final String CATEGORY_DATABASE = "database";
 
     // commands
-    private boolean isHomeEnabled = true;
-    private boolean isWarpEnabled = true;
-    private boolean isInvseeEnabled = true;
-    private boolean isBackEnabled = true;
-    private boolean isTpaEnabled = true;
-    private boolean isVanishEnabled = true;
-    private boolean isSpawnEnabled = true;
+    private boolean isHomeEnabled;
+    private boolean isWarpEnabled;
+    private boolean isInvseeEnabled;
+    private boolean isBackEnabled;
+    private boolean isTpaEnabled;
+    private boolean isVanishEnabled;
+    private boolean isSpawnEnabled;
+    private boolean isEnderchestEnabled;
 
     // commands properties
     private String backUsage = "/back - Teleport you to your previous location.";
@@ -36,6 +37,7 @@ public class MoreCommandsConfig {
     private String warpUsage = "/warp <warp name> - Warp you if the location exists.";
     private String warpsUsage = "/warps - List available warps.";
     private String delwarpUsage = "/delwarp <warp name> - Delete specified warp.";
+    private String enderchestUsage;
 
     // displayed messages
     private String databaseErrorMessage = "Unable to connect to the database.";
@@ -120,6 +122,12 @@ public class MoreCommandsConfig {
                     "Enable or disable /spawn command");
             isSpawnEnabled = isSpawnEnabledProp.getBoolean();
 
+            Property isEnderchestEnabledProp = config.get(MoreCommandsConfig.CATEGORY_GENERAL,
+                    "isEnderchestEnabled",
+                    "true",
+                    "Enable or disable /enderchest command");
+            isEnderchestEnabled = isEnderchestEnabledProp.getBoolean();
+
             /* commands properties */
             Property backUsageProp = config.get(MoreCommandsConfig.CATEGORY_USAGE,
                     "backUsage",
@@ -198,6 +206,12 @@ public class MoreCommandsConfig {
                     "/delwarp <warp name> - Delete specified warp.",
                     "/delwarp usage");
             delwarpUsage = delwarpUsageProp.getString();
+
+            Property enderchestUsageProp = config.get(MoreCommandsConfig.CATEGORY_USAGE,
+                    "enderchestUsage",
+                    "/enderchest - Open player's enderchest",
+                    "/enderchest usage");
+            enderchestUsage = enderchestUsageProp.getString();
 
             /* message category */
             Property databaseErrorProp = config.get(MoreCommandsConfig.CATEGORY_MESSAGE,
@@ -364,6 +378,10 @@ public class MoreCommandsConfig {
         return isSpawnEnabled;
     }
 
+    public boolean isEnderchestEnabled() {
+        return isEnderchestEnabled;
+    }
+
     // usage getters
 
     public String getBackUsage() {
@@ -416,6 +434,10 @@ public class MoreCommandsConfig {
 
     public String getDelwarpUsage() {
         return delwarpUsage;
+    }
+
+    public String getEnderchestUsage() {
+        return enderchestUsage;
     }
 
     // message getters

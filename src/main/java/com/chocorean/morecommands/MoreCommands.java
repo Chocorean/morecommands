@@ -102,6 +102,10 @@ public class MoreCommands
             LOGGER.info("Adding /invsee");
             event.registerServerCommand(new InvSeeCommand());
         }
+        if (config.isEnderchestEnabled()) {
+            LOGGER.info("Adding /enderchest");
+            event.registerServerCommand(new EnderchestCommand());
+        }
     }
 
     public static MoreCommandsConfig getConfig() {
