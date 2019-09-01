@@ -10,6 +10,7 @@ public class MoreCommandsUsageConfig {
     private String gamemodeUsage;
     private String homeUsage;
     private String invseeUsage;
+    private String killAllUsage;
     private String sethomeUsage;
     private String setspawnUsage;
     private String setwarpUsage;
@@ -31,6 +32,7 @@ public class MoreCommandsUsageConfig {
         this.gamemodeUsage = this.config.getProperty(CATEGORY_USAGE, "gamemode").getString();
         this.homeUsage = this.config.getProperty(CATEGORY_USAGE, "home").getString();
         this.invseeUsage = this.config.getProperty(CATEGORY_USAGE, "invsee").getString();
+        this.killAllUsage = this.config.getProperty(CATEGORY_USAGE, "killall").getString();
         this.sethomeUsage = this.config.getProperty(CATEGORY_USAGE, "sethome").getString();
         this.setspawnUsage = this.config.getProperty(CATEGORY_USAGE, "setspawn").getString();
         this.setwarpUsage = this.config.getProperty(CATEGORY_USAGE, "setwarp").getString();
@@ -60,6 +62,10 @@ public class MoreCommandsUsageConfig {
 
     public String getHomeUsage() {
         return homeUsage;
+    }
+
+    public String getKillAllUsage() {
+        return killAllUsage;
     }
 
     public String getInvseeUsage() {
@@ -101,7 +107,4 @@ public class MoreCommandsUsageConfig {
     public String getWarpsUsage() {
         return warpsUsage;
     }
-
-
-
 }

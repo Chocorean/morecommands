@@ -22,7 +22,7 @@ public class MoreCommands
 {
     static final String MODID = "morecommands";
     static final String NAME = "More Commands";
-    public static final String VERSION = "1.9";
+    public static final String VERSION = "1.10";
 
     public static final Logger LOGGER = FMLLog.log;
     private static MoreCommandsConfig config;
@@ -85,6 +85,10 @@ public class MoreCommands
         if (config.isInvseeEnabled()) {
             LOGGER.info("Adding /invsee");
             event.registerServerCommand(new InvSeeCommand());
+        }
+        if (config.isKillAllEnabled()) {
+            LOGGER.info("Adding /killall");
+            event.registerServerCommand(new KillAllCommand());
         }
         if (config.isSpawnEnabled()) {
             LOGGER.info("Adding /spawn");

@@ -9,6 +9,7 @@ public class MoreCommandsMessageConfig {
     private String homeSetMessage;
     private String homeWrongDimensionMessage;
     private String invalidGamemodeMessage;
+    private String invalidDistanceMessage;
     private String onGamemodeChange;
     private String onWarpDeletion;
     private String onWarpMessage;
@@ -18,6 +19,7 @@ public class MoreCommandsMessageConfig {
     private String onTpaRequestDestMessage;
     private String onTpaRequestSrcMessage;
     private String onTpDenyMessage;
+    private String onKillAllMessage;
     private String playerNotFoundMessage;
     private String warpNotFoundMessage;
 
@@ -30,6 +32,7 @@ public class MoreCommandsMessageConfig {
         this.homeNotFoundMessage = config.getProperty(CATEGORY_MESSAGE, "homeNotFound").getString();
         this.homeWrongDimensionMessage = config.getProperty(CATEGORY_MESSAGE, "homeWrongDimension").getString();
         this.invalidGamemodeMessage = config.getProperty(CATEGORY_MESSAGE, "invalidGamemode").getString();
+        this.invalidDistanceMessage = config.getProperty(CATEGORY_MESSAGE, "invalidDistance").getString();
         this.onGamemodeChange = config.getProperty(CATEGORY_MESSAGE, "onGamemodeChange").getString();
         this.homeSetMessage = config.getProperty(CATEGORY_MESSAGE, "onHomeSet").getString();
         this.onWarpDeletion = config.getProperty(CATEGORY_MESSAGE, "onWarpDeletion").getString();
@@ -40,6 +43,7 @@ public class MoreCommandsMessageConfig {
         this.onTpaRequestDestMessage = config.getProperty(CATEGORY_MESSAGE, "onTpaRequestDest").getString();
         this.onTpaRequestSrcMessage = config.getProperty(CATEGORY_MESSAGE, "onTpaRequestSrc").getString();
         this.onTpDenyMessage = config.getProperty(CATEGORY_MESSAGE, "onTpDeny").getString();
+        this.onKillAllMessage = config.getProperty(CATEGORY_MESSAGE, "onKillAll").getString();
         this.playerNotFoundMessage = config.getProperty(CATEGORY_MESSAGE, "playerNotFound").getString();
         this.warpNotFoundMessage = config.getProperty(CATEGORY_MESSAGE, "warpNotFound").getString();
     }
@@ -62,6 +66,10 @@ public class MoreCommandsMessageConfig {
 
     public String getInvalidGamemodeMessage() {
         return invalidGamemodeMessage;
+    }
+
+    public String getInvalidDistanceMessage() {
+        return invalidDistanceMessage;
     }
 
     public String getOnGamemodeChangeMessage() {
@@ -98,6 +106,10 @@ public class MoreCommandsMessageConfig {
 
     public String getOnWarpMessage() {
         return onWarpMessage;
+    }
+
+    public String getOnKillAllMessage() {
+        return  onKillAllMessage;
     }
 
     public String getPlayerNotFoundMessage() {

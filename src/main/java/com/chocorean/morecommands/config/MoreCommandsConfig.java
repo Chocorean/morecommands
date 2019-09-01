@@ -25,6 +25,7 @@ public class MoreCommandsConfig {
     private boolean isEnderchestEnabled;
     private boolean isGamemodeEnabled;
     private boolean isHomeEnabled;
+    private boolean isKillAllEnabled;
     private boolean isInvseeEnabled;
     private boolean isSpawnEnabled;
     private boolean isTpaEnabled;
@@ -107,6 +108,7 @@ public class MoreCommandsConfig {
         this.isEnderchestEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isEnderchestEnabled").getBoolean();
         this.isGamemodeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isGamemodeEnabled").getBoolean();
         this.isHomeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isHomeEnabled").getBoolean();
+        this.isKillAllEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isKillAllEnabled").getBoolean();
         this.isInvseeEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isInvseeEnabled").getBoolean();
         this.isSpawnEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isSpawnEnabled").getBoolean();
         this.isTpaEnabled = this.getProperty(MoreCommandsConfig.CATEGORY_GENERAL, "isTpaEnabled").getBoolean();
@@ -132,6 +134,10 @@ public class MoreCommandsConfig {
 
     public boolean isHomeEnabled() {
         return isHomeEnabled;
+    }
+
+    public boolean isKillAllEnabled() {
+        return isKillAllEnabled;
     }
 
     public boolean isInvseeEnabled() {
