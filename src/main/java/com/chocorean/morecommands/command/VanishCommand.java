@@ -25,11 +25,11 @@ public class VanishCommand extends CommandBase {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         EntityPlayerMP player = ((EntityPlayerMP)sender);
         if (player.isInvisible()) {
-            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now visible.")));
             player.setInvisible(false);
+            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now visible.")));
         } else {
-            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now invisible.")));
             player.setInvisible(true);
+            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now invisible.")));
         }
     }
 
