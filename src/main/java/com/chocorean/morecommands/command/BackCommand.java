@@ -32,7 +32,7 @@ public class BackCommand extends CommandBase {
         PlayerPos lastPos = backList.get(p.getName());
         if (lastPos == null) throw new PlayerHasNoLastPositionException();
         // on note pour le prochain /back
-        PlayerPos newLastPos = new PlayerPos(p.getPosition(), p.dimension, p.rotationYaw, p.rotationPitch);
+        PlayerPos newLastPos = new PlayerPos(p);
         // on tp
         if (p.dimension != lastPos.getDimension()) p.changeDimension(lastPos.getDimension());
         BlockPos bp = lastPos.getPosition();

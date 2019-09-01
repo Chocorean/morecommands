@@ -1,5 +1,6 @@
 package com.chocorean.morecommands.model;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 
 public class PlayerPos {
@@ -8,11 +9,11 @@ public class PlayerPos {
     private float yaw;
     private float pitch;
 
-    public PlayerPos(BlockPos p, int d, float y, float pi) {
-        position = p;
-        dimension = d;
-        yaw = y;
-        pitch = pi;
+    public PlayerPos(EntityPlayer player) {
+        position = player.getPosition();
+        dimension = player.dimension;
+        yaw = player.rotationYaw;
+        pitch = player.rotationPitch;
     }
 
     public int getDimension() {

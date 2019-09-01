@@ -4,7 +4,9 @@ import com.chocorean.morecommands.command.BackCommand;
 import com.chocorean.morecommands.model.PlayerPos;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
@@ -16,7 +18,7 @@ public class Handler {
             EntityPlayer player = event.player;
 
             // Back command
-            PlayerPos firstPos = new PlayerPos(player.getPosition(), player.dimension, player.rotationYaw, player.rotationPitch);
+            PlayerPos firstPos = new PlayerPos(player);
             BackCommand.backList.put(player.getName(), firstPos);
         }
     }
@@ -26,5 +28,16 @@ public class Handler {
         EntityPlayerMP player = (EntityPlayerMP) event.player;
         BackCommand.backList.remove(player.getName());
         MoreCommands.handler.clean(player.getName());
+    }
+
+    @SubscribeEvent
+    public static void onDeath(LivingDeathEvent event) {
+        try {
+            EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
+            PlayerPos pos = new PlayerPos(player);
+            BackCommand.backList.put(player.getName(), pos);
+        } catch (ClassCastException e) {
+            // nothing to do: not a player
+        }
     }
 }

@@ -62,7 +62,7 @@ public class TpaHereCommand extends CommandBase {
                 try {
                     EntityPlayerMP playerToTp = this.handler.getSrcForTpa(p.getName());
                     BlockPos pos = p.getPosition();
-                    PlayerPos pp = new PlayerPos(pos, playerToTp.dimension, playerToTp.rotationYaw, playerToTp.rotationPitch);
+                    PlayerPos pp = new PlayerPos(playerToTp);
                     BackCommand.backList.put(playerToTp.getName(), pp);
                     if (playerToTp.dimension != p.dimension) playerToTp.changeDimension(p.dimension);
                     playerToTp.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);

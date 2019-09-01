@@ -37,7 +37,7 @@ public class HomeCommand extends CommandBase {
         IHome home = this.storage.findHome(p.getName());
         if (home == null) throw new HomeNotFoundException();
         if (p.dimension != 0) throw new HomeWrongDimensionException();
-        PlayerPos newLastPos = new PlayerPos(p.getPosition(), 0, p.rotationYaw, p.rotationPitch);
+        PlayerPos newLastPos = new PlayerPos(p);
         BackCommand.backList.put(p.getName(), newLastPos);
         // on tp
         BlockPos bp = home.getPosition();

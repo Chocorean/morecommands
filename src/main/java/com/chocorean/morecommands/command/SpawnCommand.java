@@ -24,7 +24,7 @@ public class SpawnCommand extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         EntityPlayerMP p = (EntityPlayerMP)sender;
-        PlayerPos newLastPos = new PlayerPos(p.getPosition(), p.dimension, p.rotationYaw, p.rotationPitch);
+        PlayerPos newLastPos = new PlayerPos(p);
         BackCommand.backList.put(sender.getName(), newLastPos);
         BlockPos spawn = server.getEntityWorld().getSpawnPoint();
         if (p.dimension != 0) p.changeDimension(0);
