@@ -6,8 +6,9 @@
 /run
 
 # Eclipse
-/.settings
 /.classpath
+/.settings
+/.project
 /bin
 /eclipse
 
