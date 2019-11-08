@@ -1,13 +1,15 @@
-.idea/*
-run/*
-build/*
-.gradle/*
-gradle*
-.vscode
-.settings
-bin
-out
-.classpath
-.project
-*.iml
-classes
+# Gradle
+/.gradle
+/build
+
+# ForgeGradle
+/run
+
+# Eclipse
+/.settings
+/.classpath
+/bin
+/eclipse
+
+# Jars
+!/gradle/wrapper/gradle-wrapper.jar
