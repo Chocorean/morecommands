@@ -65,7 +65,7 @@ public class MoreCommandsConfig {
 
     private void loadConfigurationData() {
         Properties props = new Properties();
-        InputStream inputStream = getClass().getResourceAsStream("/morecommands-config.properties");
+        InputStream inputStream = getClass().getResourceAsStream("/assets/morecommands/config/morecommands.cfg");
         try {
             props.load(inputStream);
             props.forEach((key, value) -> {

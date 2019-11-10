@@ -12,10 +12,8 @@
 
 ## Table of contents
 
-- [What is More Commands?](#what-is-more-commands)
-- [How it works](#how-it-works)
+- [What is MoreCommands?](#what-is-morecommands)
 - [Getting started for developers](#getting-started-for-developers)
-  - [Installation](#installation)
   - [Using the file strategy](#using-the-file-strategy)
   - [Using the database strategy](#using-the-database-strategy)
 - [Getting started for administrators](#getting-started-for-administrators)
@@ -24,33 +22,26 @@
 - [Contact](#contact)
 - [Contributors](#contributors)
 
-## What is More Commands?
-More Commands is a mod which add a bunch of useful commands for players and administrators. It is inspired from the old [Essentials plugin](https://dev.bukkit.org/projects/essentials) created by **essentialsteam** (sources availables [here](https://github.com/essentials/Essentials)). This is a server-side mod, which means you only need to add this mod in your server mods folder. Something cool about this is Vanilla clients are able to connect to a Forge Minecraft server using MoreCommands.
+## What is MoreCommands?
+MoreCommands is a mod which add a bunch of useful commands for players and administrators. It is inspired from the old [Essentials plugin](https://dev.bukkit.org/projects/essentials) created by **essentialsteam** (sources availables [here](https://github.com/essentials/Essentials)). This is a server-side mod, which means you only need to add this mod in your server mods folder. Something cool about this is Vanilla clients are able to connect to a Forge Minecraft server using MoreCommands. It simply adds several commands for your Minecraft server. Bold commands are for OPs only.
 
-## How it works
-
-MoreCommands simply adds several commands for your Minecraft server. Red commands are for OPs only.
-```html
-<ul>
-  <li>/sethome</li>
-  <li>/home</li>
-  <li>/spawn</li>
-  <li>/tpa</li>
-  <li>/tpahere</li>
-  <li>/back</li>
-  <li>/warp</li>
-  <li>/warps</li>
-  <li style="color: red">/setspawn</li>
-  <li style="color: red">/setwarp</li>
-  <li style="color: red">/vanish</li>
-  <li style="color: red">/invsee</li>
-</ul>
-```
+*  /sethome
+*  /home
+*  /spawn
+*  /tpa
+*  /tpahere
+*  /back
+*  /warp
+*  /warps
+*  **/setspawn**
+*  **/setwarp**
+*  **/vanish**
+*  **/invsee**
 
 ## Getting started
 
 1. Stop your Minecraft server.
-2. Add `morecommands-X.X.jar` in the `mods/` directory:
+2. Add `morecommands-X.X.jar` in the `./mods/` directory of your server.
 ```bash
 # This command downloads the latest version of morecommands
 # Execute it in the mods/ folder
@@ -62,7 +53,7 @@ curl -s https://api.github.com/repos/chocorean/morecommands/releases/latest \
 ```
 3. Run once your server in order to generate the configuration file.
 4. Edit the `./config/morecommands.cfg` file depending on your needs (see [file and database strategies](#strategies)).
-5. Restart the server. It should be working now.
+5. Restart the server.
 
 ## Strategies
 
@@ -76,7 +67,7 @@ general {
   S:strategy=FILE
 }
 ```
-When using this strategy, the `morecommands.csv` file will be created in the `./data/` folder.
+When using this strategy, a `morecommands.csv` file will be created in the `./data/` folder.
 Each row is composed of 4 types of data:
  - The type of data (currently `HOME` or `WARP`)
  - The username of the player

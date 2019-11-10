@@ -2,10 +2,8 @@ package com.chocorean.morecommands;
 
 import com.chocorean.morecommands.command.*;
 import com.chocorean.morecommands.config.MoreCommandsConfig;
-import com.chocorean.morecommands.misc.TpHandler;
-import com.chocorean.morecommands.storage.datasource.DatabaseSourceStrategy;
-import com.chocorean.morecommands.storage.datasource.FileDataSourceStrategy;
-import com.chocorean.morecommands.storage.datasource.IDataSourceStrategy;
+import com.chocorean.morecommands.misc.*;
+import com.chocorean.morecommands.storage.datasource.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +19,7 @@ import java.nio.file.Paths;
 public class MoreCommands
 {
     static final String MODID = "morecommands";
-    static final String NAME = "More Commands";
+    static final String NAME = "MoreCommands";
     public static final String VERSION = "1.10";
 
     public static final Logger LOGGER = FMLLog.log;
