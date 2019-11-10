@@ -2,20 +2,13 @@
   <br>
   <img
     alt="MoreCommands logo"
-    src="./src/main/resources/logo.png"
+    src="./src/main/resources/assets/morecommands/textures/logo.png"
     width=200px
   />
   <br/>
   <h1>More Commands</h1>
   <strong>Server-side mod which adds a bunch of useful commands for players and administrators.</strong>
 </div>
-
-
-<style>
-.redtext {
-  color: red;
-}
-</style>
 
 ## Table of contents
 
@@ -45,7 +38,7 @@ MoreCommands simply adds several commands for your Minecraft server. Red command
 *  /back
 *  /warp
 *  /warps
-*  <span class="redtext">/setspawn</span>
+*  <span style="color: red">/setspawn</span>
 *  <span class="redtext">/setwarp</span>
 *  <span class="redtext">/vanish</span>
 *  <span class="redtext">/invsee</span>
