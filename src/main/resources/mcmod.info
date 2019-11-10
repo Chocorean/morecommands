@@ -1,16 +1,16 @@
 [
 {
-  "modid": "morecommands",
-  "name": "MoreCommands",
-  "description": "Adds a buch of useful commands for multiplayer servers",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "https://minecraft.curseforge.com/projects/more-commands-mod",
-  "updateUrl": "",
-  "authorList": ["Chocorean"],
-  "credits": "",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+	"modid": "morecommands",
+	"name": "MoreCommands",
+	"description": "Adds a bunch of useful commands to your modded server.",
+	"version": "$version",
+	"mcversion": "${mcversion}"
+	"credits": "By Chocorean, Mcdostone",
+	"url": "https://minecraft.curseforge.com/projects/more-commands-mod/",
+	"authorList": [ "Chocorean", "Mcdostone" ],
+	"logoFile": "logo.png",
+	"requiredMods": [ "forge" ],
+	"dependencies": [  ],
+	"useDependencyInformation": true
 }
 ]
