@@ -30,7 +30,7 @@ More Commands is a mod which add a bunch of useful commands for players and admi
 ## How it works
 
 MoreCommands simply adds several commands for your Minecraft server. Red commands are for OPs only.
-`tml
+```html
 <ul>
   <li>/sethome</li>
   <li>/home</li>
