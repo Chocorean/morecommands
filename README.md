@@ -30,18 +30,22 @@ More Commands is a mod which add a bunch of useful commands for players and admi
 ## How it works
 
 MoreCommands simply adds several commands for your Minecraft server. Red commands are for OPs only.
-*  /sethome
-*  /home
-*  /spawn
-*  /tpa
-*  /tpahere
-*  /back
-*  /warp
-*  /warps
-*  <span style="color: red">/setspawn</span>
-*  <span class="redtext">/setwarp</span>
-*  <span class="redtext">/vanish</span>
-*  <span class="redtext">/invsee</span>
+`tml
+<ul>
+  <li>/sethome</li>
+  <li>/home</li>
+  <li>/spawn</li>
+  <li>/tpa</li>
+  <li>/tpahere</li>
+  <li>/back</li>
+  <li>/warp</li>
+  <li>/warps</li>
+  <li style="color: red">/setspawn</li>
+  <li style="color: red">/setwarp</li>
+  <li style="color: red">/vanish</li>
+  <li style="color: red">/invsee</li>
+</ul>
+```
 
 ## Getting started
 
