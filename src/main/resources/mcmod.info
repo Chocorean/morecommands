@@ -4,7 +4,7 @@
 	"name": "MoreCommands",
 	"description": "Adds a bunch of useful commands to your modded server.",
 	"version": "$version",
-	"mcversion": "${mcversion}"
+	"mcversion": "${mcversion}",
 	"credits": "By Chocorean, Mcdostone",
 	"url": "https://minecraft.curseforge.com/projects/more-commands-mod/",
 	"authorList": [ "Chocorean", "Mcdostone" ],
