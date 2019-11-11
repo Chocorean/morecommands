@@ -20,6 +20,7 @@ commands.morecommands.sethome.dimension=Tu dois etre dans l'overworld pour faire
 commands.morecommands.sethome.success=Ta maison a été paramétrée.
 commands.morecommands.setspawn.usage=/setspawn - Paramètre le spawn.
 commands.morecommands.setspawn.success=Spawn mis à jour.
+commands.morecommands.setspawn.dimension=Il faut etre dans l'overworld pour changer le spawn.
 commands.morecommands.setwarp.usage=/setwarp <warp name> - Créé un nouveau warp à ta position.
 commands.morecommands.setwarp.error=Impossible de créer le warp %s.
 commands.morecommands.setwarp.success=Le warp %s a été créé.
