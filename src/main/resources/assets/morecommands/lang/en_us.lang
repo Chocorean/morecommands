@@ -1,0 +1,40 @@
+# Config
+morecommands.config.title=MoreCommands Configuration
+
+# Commands
+commands.morecommands.back.usage=/back - Teleport you to your previous location.
+commands.morecommands.delwarp.usage=/delwarp <warp name> - Delete specified warp.
+commands.morecommands.delwarp.error=Warp %s does not exist.
+commands.morecommands.delwarp.success=%s has been deleted.
+commands.morecommands.enderchest.usage=/enderchest - Open you endeerchest from anywhere.
+commands.morecommands.home.usage=/home - Teleport home/
+commands.morecommands.home.error=You do not have a home yet.
+commands.morecommands.home.dimension=You should be in the overworld to use /home.
+commands.morecommands.invsee.usage=/invsee <player> - Allow to see antoehr player's inventory.
+commands.morecommands.invsee.error=Player %s does not exist.
+commands.morecommands.killall.usage=/killall [radius=100] - kill all living entities in a [radius] radius.
+commands.morecommands.killall.error=%s is not a valid radius.
+commands.morecommands.killall.success=%d entities killed.
+commands.morecommands.sethome.usage=/sethome - Set your home (only in overworld).
+commands.morecommands.sethome.dimension=You should be in the overworld to use /sethome.
+commands.morecommands.sethome.success=Your home has been set.
+commands.morecommands.setspawn.usage=/setspawn - Change world's spawn.
+commands.morecommands.setspawn.success=World's spawn has been changed.
+commands.morecommands.setwarp.usage=/setwarp <warp name> - Set a warp at your current position.
+commands.morecommands.setwarp.error=Could not create warp %s.
+commands.morecommands.setwarp.success=Created warp %s.
+commands.morecommands.spawn.usage=/spawn - Teleport to the world's spawn.
+commands.morecommands.tpa.usage=/tpa <player> - Ask a player you can teleport to him/her.
+commands.morecommands.tpahere.usage=/tpahere player - Ask a player to teleport to you.
+commands.morecommands.tpdeny=%s denied your request.
+commands.morecommands.tpa.dst=%s would like to join you. Type /tpahere yes/no to answer.
+commands.morecommands.tpa.request=A request has been sent to %s.
+commands.morecommands.tpahere.src=%s would like you to join him. Type /tpa yes/no to answer.
+commands.morecommands.vanish.usage=/vanish - Make you invisible. (do it again to become visible).
+commands.morecommands.warp.usage=/warp <warp name> - Teleport to the specified warp.
+commands.morecommands.warp.error=Warp %s does not exist.
+commands.morecommands.warps.usage=/warps - List availables warps.
+commands.morecommands.warps.list=Available warps:
+
+# Database
+morecommands.database.connecterror=Unable to connect to the database.
