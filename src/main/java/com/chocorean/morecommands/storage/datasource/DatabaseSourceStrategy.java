@@ -1,6 +1,5 @@
 package com.chocorean.morecommands.storage.datasource;
 
-import com.chocorean.morecommands.MoreCommands;
 import com.chocorean.morecommands.config.MoreCommandsConfig;
 import com.chocorean.morecommands.exception.HomeNotFoundException;
 import com.chocorean.morecommands.exception.MoreCommandsException;
@@ -10,8 +9,6 @@ import com.chocorean.morecommands.model.IHome;
 import com.chocorean.morecommands.model.IWarp;
 import com.chocorean.morecommands.model.Warp;
 import com.chocorean.morecommands.storage.database.HomeDAO;
-import com.chocorean.morecommands.storage.database.IHomeDAO;
-import com.chocorean.morecommands.storage.database.IWarpDAO;
 import com.chocorean.morecommands.storage.database.WarpDAO;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
@@ -25,9 +22,9 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
     private final WarpDAO<Warp> warpsDAO;
     private final Logger LOGGER = FMLLog.log;
 
-    public DatabaseSourceStrategy(MoreCommandsConfig config) {
-        this.homesDAO = new HomeDAO<>(config.getDatabaseConfig().getHomeTable());
-        this.warpsDAO = new WarpDAO<>(config.getDatabaseConfig().getWarpTable());
+    public DatabaseSourceStrategy() {
+        this.homesDAO = new HomeDAO<>(MoreCommandsConfig.DatabaseCategory.hometable);
+        this.warpsDAO = new WarpDAO<>(MoreCommandsConfig.DatabaseCategory.warptable);
     }
 
     @Override
@@ -37,7 +34,7 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
             w = this.warpsDAO.findByName(name);
         } catch(SQLException e) {
             LOGGER.catching(Level.ERROR, e);
-            throw new WarpNotFoundException(MoreCommands.getConfig().getMessageConfig().getWarpNotFoundMessage());
+            throw new WarpNotFoundException("morecommands.database.connecterror");
         }
         return w;
     }
@@ -69,7 +66,7 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
             h = this.homesDAO.findByUsername(username);
         } catch(SQLException e) {
             LOGGER.catching(Level.ERROR, e);
-            throw new HomeNotFoundException(MoreCommands.getConfig().getMessageConfig().getHomeNotFoundMessage());
+            throw new HomeNotFoundException();
         }
         return h;
     }

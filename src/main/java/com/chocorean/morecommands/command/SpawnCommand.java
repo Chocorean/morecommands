@@ -18,7 +18,7 @@ public class SpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getSpawnUsage();
+        return "commands.morecommands.spawn.usage";
     }
 
     @Override
@@ -29,7 +29,6 @@ public class SpawnCommand extends CommandBase {
         BlockPos spawn = server.getEntityWorld().getSpawnPoint();
         if (p.dimension != 0) p.changeDimension(0);
         p.connection.setPlayerLocation(spawn.getX(), spawn.getY(), spawn.getZ(), p.rotationYaw, p.rotationPitch);
-        p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getMessageConfig().getOnSpawnMessage())));
     }
 
     @Override

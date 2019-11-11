@@ -1,6 +1,7 @@
 package com.chocorean.morecommands.storage.database;
 
 import com.chocorean.morecommands.MoreCommands;
+import com.chocorean.morecommands.config.MoreCommandsConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +11,14 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         try {
             return DriverManager.getConnection(String.format("jdbc:%s://%s:%s/%s",
-                    MoreCommands.getConfig().getDatabaseConfig().getDialect(),
-                    MoreCommands.getConfig().getDatabaseConfig().getHost(),
-                    MoreCommands.getConfig().getDatabaseConfig().getPort(),
-                    MoreCommands.getConfig().getDatabaseConfig().getDatabase()),
-                    MoreCommands.getConfig().getDatabaseConfig().getUser(),
-                    MoreCommands.getConfig().getDatabaseConfig().getPassword());
+                    MoreCommandsConfig.DatabaseCategory.dialect,
+                    MoreCommandsConfig.DatabaseCategory.hostname,
+                    MoreCommandsConfig.DatabaseCategory.port,
+                    MoreCommandsConfig.DatabaseCategory.database),
+                    MoreCommandsConfig.DatabaseCategory.user,
+                    MoreCommandsConfig.DatabaseCategory.password);
         } catch (SQLException ex) {
-            throw new RuntimeException(MoreCommands.getConfig().getMessageConfig().getDatabaseErrorMessage(), ex);
+            throw new RuntimeException("morecommands.database.connecterror", ex);
         }
     }
 }

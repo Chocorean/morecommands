@@ -32,12 +32,12 @@ public class WarpsCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getWarpsUsage();
+        return "commands.morecommands.warps.usage";
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        StringBuffer buffer = new StringBuffer("Available warps: ");
+        StringBuffer buffer = new StringBuffer("commands.morecommands.warps.list");
         try {
             ArrayList<String> warps = storage.listWarps();
             for (int i=0; i<warps.size(); i++) {

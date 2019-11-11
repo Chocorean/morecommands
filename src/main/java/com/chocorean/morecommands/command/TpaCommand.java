@@ -29,7 +29,7 @@ public class TpaCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getTpaUsage();
+        return "commands.morecommands.tpa.usage";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TpaCommand extends CommandBase {
             EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
                 try {
-                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format(MoreCommands.getConfig().getMessageConfig().getOnTpDenyMessage(),p.getName()))));
+                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("commands.morecommands.tpdeny", p.getName()))));
                     // suppression
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
@@ -79,10 +79,10 @@ public class TpaCommand extends CommandBase {
                     // le joueur existe
                     handler.addTpa(dest.getName(), src);
                     dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            MoreCommands.getConfig().getMessageConfig().getOnTpaRequestDestMessage(),
+                            "commands.morecommands.tpa.dst",
                             src.getName()))));
                     src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            MoreCommands.getConfig().getMessageConfig().getOnTpaRequestSrcMessage(),
+                            "commands.morecommands.tpa.src",
                             dest.getName()))));
                 } else {
                     throw new PlayerNotFoundException(args[0]);

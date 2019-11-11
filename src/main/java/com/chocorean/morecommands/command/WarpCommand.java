@@ -34,7 +34,7 @@ public class WarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getWarpUsage();
+        return "commands.morecommands.warp.usage";
     }
 
     @Override
@@ -50,7 +50,6 @@ public class WarpCommand extends CommandBase {
             }
             BlockPos pos = warp.getPosition();
             p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString(MoreCommands.getConfig().getMessageConfig().getOnWarpMessage())));
         } else {
             throw new WarpNotFoundException(args[0]);
         }

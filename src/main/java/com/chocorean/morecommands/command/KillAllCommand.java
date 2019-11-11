@@ -1,8 +1,6 @@
 package com.chocorean.morecommands.command;
 
 import com.chocorean.morecommands.MoreCommands;
-import com.chocorean.morecommands.config.MoreCommandsConfig;
-import com.chocorean.morecommands.config.MoreCommandsMessageConfig;
 import com.chocorean.morecommands.exception.InvalidArgumentException;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
@@ -36,7 +34,7 @@ public class KillAllCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getKillAllUsage();
+        return "commands.morecommands.killall.usage";
     }
 
     @Override
@@ -79,7 +77,7 @@ public class KillAllCommand extends CommandBase {
                 }
             }
         }
-        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format(MoreCommands.getConfig().getMessageConfig().getOnKillAllMessage(), cpt))));
+        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("commands.morecommands.kilall.success", cpt))));
     }
 
     @Override

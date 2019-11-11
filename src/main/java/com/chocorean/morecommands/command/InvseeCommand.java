@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class InvSeeCommand extends CommandBase {
+public class InvseeCommand extends CommandBase {
     @Override
     public String getName() {
         return "invsee";
@@ -25,7 +25,7 @@ public class InvSeeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getInvseeUsage();
+        return "commands.morecommands.invsee.usage";
     }
 
     @Override

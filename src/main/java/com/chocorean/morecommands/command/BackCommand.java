@@ -22,7 +22,7 @@ public class BackCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getBackUsage();
+        return "commands.morecommands.back.usage";
     }
 
     @Override

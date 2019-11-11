@@ -4,6 +4,6 @@ import com.chocorean.morecommands.MoreCommands;
 
 public class NoHomeException extends MoreCommandsException{
     public NoHomeException(Object... objects) {
-        super(MoreCommands.getConfig().getMessageConfig().getHomeNotFoundMessage(), objects);
+        super("commands.morecommands.home.error", objects);
     }
 }

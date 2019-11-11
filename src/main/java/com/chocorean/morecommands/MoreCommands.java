@@ -18,22 +18,23 @@ import java.nio.file.Paths;
 @Mod(modid = MoreCommands.MODID, name = MoreCommands.NAME, version = MoreCommands.VERSION, serverSideOnly = true, acceptableRemoteVersions = "*")
 public class MoreCommands
 {
-    static final String MODID = "morecommands";
+    public static final String MODID = "morecommands";
     static final String NAME = "MoreCommands";
-    public static final String VERSION = "1.10";
+    static final String VERSION = "1.10";
+
+    @Mod.Instance(MODID)
+    public static MoreCommands instance;
 
     public static final Logger LOGGER = FMLLog.log;
-    private static MoreCommandsConfig config;
     private static IDataSourceStrategy strategy;
 
     public static TpHandler handler;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        config = new MoreCommandsConfig(event.getSuggestedConfigurationFile());
-        switch (config.getDatabaseConfig().getStorageStrategy().toUpperCase()) {
+        switch (MoreCommandsConfig.DatabaseCategory.storageStrategy.toUpperCase()) {
             case "DATABASE":
-                MoreCommands.strategy = new DatabaseSourceStrategy(config);
+                MoreCommands.strategy = new DatabaseSourceStrategy();
                 LOGGER.info("[AuthMod] Now using DatabaseAuthenticationStrategy.");
                 break;
             case "FILE":
@@ -62,49 +63,45 @@ public class MoreCommands
     public void serverStarting(FMLServerStartingEvent event) {
         LOGGER.info("Adding MoreCommands Event Handler");
         MinecraftForge.EVENT_BUS.register(new Handler());
-        if (config.isBackEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isBackEnabled) {
             LOGGER.info("Adding /back");
             event.registerServerCommand(new BackCommand());
         }
-        if (config.isEnderchestEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isEnderchestEnabled) {
             LOGGER.info("Adding /enderchest");
             event.registerServerCommand(new EnderchestCommand());
         }
-        if (config.isGamemodeEnabled()) {
-            LOGGER.info("Adding custom /gamemode");
-            event.registerServerCommand(new GamemodeCommand());
-        }
-        if (config.isHomeEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isHomeEnabled) {
             LOGGER.info("Adding /home");
             event.registerServerCommand(new HomeCommand(strategy));
             LOGGER.info("Adding /sethome");
             event.registerServerCommand(new SetHomeCommand(strategy));
         }
-        if (config.isInvseeEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isInvseeEnabled) {
             LOGGER.info("Adding /invsee");
-            event.registerServerCommand(new InvSeeCommand());
+            event.registerServerCommand(new InvseeCommand());
         }
-        if (config.isKillAllEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isKillallEnabled) {
             LOGGER.info("Adding /killall");
             event.registerServerCommand(new KillAllCommand());
         }
-        if (config.isSpawnEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isSpawnEnabled) {
             LOGGER.info("Adding /spawn");
             event.registerServerCommand(new SpawnCommand());
             LOGGER.info("Adding /setspawn");
             event.registerServerCommand(new SetSpawnCommand());
         }
-        if (config.isTpaEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isTpaEnabled) {
             LOGGER.info("Adding /tpa");
             event.registerServerCommand(new TpaCommand());
             LOGGER.info("Adding /tpahere");
             event.registerServerCommand(new TpaHereCommand());
         }
-        if (config.isVanishEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isVanishEnabled) {
             LOGGER.info("Adding /vanish");
             event.registerServerCommand(new VanishCommand());
         }
-        if (config.isWarpEnabled()) {
+        if (MoreCommandsConfig.CommandCategory.isWarpEnabled) {
             LOGGER.info("Adding /warps");
             event.registerServerCommand(new WarpsCommand(strategy));
             LOGGER.info("Adding /warp");
@@ -114,10 +111,6 @@ public class MoreCommands
             LOGGER.info("Adding /delwarp");
             event.registerServerCommand(new DelWarpCommand(strategy));
         }
-    }
-
-    public static MoreCommandsConfig getConfig() {
-        return config;
     }
 
     public static IDataSourceStrategy getDataSourceStrategy() {

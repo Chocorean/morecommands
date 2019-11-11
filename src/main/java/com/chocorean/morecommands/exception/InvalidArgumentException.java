@@ -4,6 +4,6 @@ import com.chocorean.morecommands.MoreCommands;
 
 public class InvalidArgumentException extends MoreCommandsException {
     public InvalidArgumentException(String distance, Object... objects) {
-        super(String.format(MoreCommands.getConfig().getMessageConfig().getInvalidDistanceMessage(), distance), objects);
+        super(String.format("commands.morecommands.killall.error", distance), objects);
     }
 }

@@ -18,7 +18,7 @@ public class VanishCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.getConfig().getUsageConfig().getVanishUsage();
+        return "commands.morecommands.vanish.usage";
     }
 
     @Override
@@ -26,10 +26,10 @@ public class VanishCommand extends CommandBase {
         EntityPlayerMP player = ((EntityPlayerMP)sender);
         if (player.isInvisible()) {
             player.setInvisible(false);
-            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now visible.")));
+            // player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now visible.")));
         } else {
             player.setInvisible(true);
-            player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now invisible.")));
+            // player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now invisible.")));
         }
     }
 
