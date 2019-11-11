@@ -30,7 +30,7 @@ public class WarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.warp.usage";
+        return "command.morecommands.warp.usage";
     }
 
     @Override

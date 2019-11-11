@@ -27,7 +27,7 @@ public class EnderchestCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.enderchest.usage";
+        return "command.morecommands.enderchest.usage";
     }
 
     @Override

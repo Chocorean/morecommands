@@ -30,7 +30,7 @@ public class DelWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.delwarp.usage";
+        return "command.morecommands.delwarp.usage";
     }
 
     @Override
@@ -40,10 +40,10 @@ public class DelWarpCommand extends CommandBase {
         }
         try {
             if (!this.storage.listWarps().contains(args[0])) {
-                throw new WarpNotFoundException(String.format("commands.morecommands.back.error", args[0]));
+                throw new WarpNotFoundException(String.format("command.morecommands.back.error", args[0]));
             } else {
                 this.storage.deleteWarp(args[0]);
-                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("commands.morecommands.back.success", args[0]))));
+                ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.back.success", args[0]))));
             }
         } catch (SQLException e) {
             throw new WarpNotFoundException(args[0]);

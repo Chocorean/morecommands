@@ -30,7 +30,7 @@ public class SetHomeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.sethome.usage";
+        return "command.morecommands.sethome.usage";
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SetHomeCommand extends CommandBase {
         Home home = new Home(p.getName(), pos, p.rotationYaw, p.rotationPitch);
         try {
             this.storage.registerHome(home);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString("commands.morecommands.sethome.success")));
+            p.connection.sendPacket(new SPacketChat(new TextComponentString("command.morecommands.sethome.success")));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
         }

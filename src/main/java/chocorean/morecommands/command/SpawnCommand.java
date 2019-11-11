@@ -15,7 +15,7 @@ public class SpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.spawn.usage";
+        return "command.morecommands.spawn.usage";
     }
 
     @Override

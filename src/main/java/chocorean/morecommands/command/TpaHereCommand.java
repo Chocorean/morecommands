@@ -29,7 +29,7 @@ public class TpaHereCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "commands.morecommands.tpahere.usage";
+        return "command.morecommands.tpahere.usage";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TpaHereCommand extends CommandBase {
             EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
                 try {
-                    this.handler.getSrcForTpa(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("commands.morecommands.tpdeny", p.getName()))));
+                    this.handler.getSrcForTpa(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.tpdeny", p.getName()))));
                     // suppression
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
@@ -78,10 +78,10 @@ public class TpaHereCommand extends CommandBase {
                     // le joueur existe
                     handler.addTpah(src.getName(), p);
                     src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            "commands.morecommands.tpahere.src",
+                            "command.morecommands.tpahere.src",
                             p.getName()))));
                     p.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            "commands.morecommands.tpahere.dst",
+                            "command.morecommands.tpahere.dst",
                             src.getName()))));
                 } else {
                     throw new PlayerNotFoundException(args[0]);
