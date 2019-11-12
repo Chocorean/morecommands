@@ -49,7 +49,6 @@ public class DelWarpCommand extends CommandBase {
                 this.storage.deleteWarp(args[0]);
                 sender.sendMessage(new TextComponentString(
                         String.format(localization.get("commands.morecommands.delwarp.success"), args[0])));
-                //((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.back.success", args[0]))));
             }
         } catch (SQLException e) {
             throw new WarpNotFoundException(args[0]);

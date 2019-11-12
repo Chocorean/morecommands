@@ -44,7 +44,6 @@ public class WarpsCommand extends CommandBase {
                 if (i != warps.size()-1) buffer.append(", ");
             }
             sender.sendMessage(new TextComponentString(buffer.toString()));
-            //((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(buffer.toString())));
         } catch (SQLException e) {
             e.printStackTrace();
         }

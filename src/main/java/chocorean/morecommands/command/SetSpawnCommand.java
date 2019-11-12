@@ -33,8 +33,7 @@ public class SetSpawnCommand extends CommandBase {
             throw new SetspawnInvalidDimensionException();
         if (!sender.getEntityWorld().isRemote) {
             sender.getEntityWorld().setSpawnPoint(sender.getPosition());
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(
-                    localization.get("Spawnpoint has been changed."))));
+            sender.sendMessage(new TextComponentString(localization.get("Spawnpoint has been changed.")));
         }
     }
 

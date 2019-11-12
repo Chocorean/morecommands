@@ -80,8 +80,8 @@ public class KillAllCommand extends CommandBase {
                 }
             }
         }
-        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(
-                String.format(localization.get("commands.morecommands.kilall.success"), cpt))));
+        sender.sendMessage(new TextComponentString(
+                String.format(localization.get("commands.morecommands.kilall.success"), cpt)));
     }
 
     @Override

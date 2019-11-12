@@ -48,12 +48,12 @@ public class SetWarpCommand extends CommandBase {
         Warp warp = new Warp(args[0], pos, dim, p.rotationYaw, p.rotationPitch);
         try {
             this.storage.registerWarp(warp);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    String.format(localization.get("commands.morecommands.setwarp.success"), args[0]))));
+            p.sendMessage(new TextComponentString(
+                    String.format(localization.get("commands.morecommands.setwarp.success"), args[0])));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    String.format(localization.get("commands.morecommands.setwarp.error"), args[0]))));
+            p.sendMessage(new TextComponentString(
+                    String.format(localization.get("commands.morecommands.setwarp.error"), args[0])));
         }
     }
 

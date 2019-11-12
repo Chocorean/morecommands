@@ -54,14 +54,12 @@ public class TpaCommand extends CommandBase {
             EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
                 try {
-                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(
-                            new TextComponentString(
-                                    String.format(localization.get("commands.morecommands.tpdeny"), p.getName()))));
+                    this.handler.getDestForTpah(p.getName()).sendMessage(new TextComponentString(
+                            String.format(localization.get("commands.morecommands.tpdeny"), p.getName())));
                     // suppression
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
-                    p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                            localization.get("commands.morecommands.tpa.norequest"))));
+                    p.sendMessage(new TextComponentString(localization.get("commands.morecommands.tpa.norequest")));
                 }
             } else if (args[0].equals("yes")){
                 try {
@@ -73,8 +71,7 @@ public class TpaCommand extends CommandBase {
                     p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
-                    p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                            localization.get("commands.morecommands.tpa.norequest"))));
+                    p.sendMessage(new TextComponentString(localization.get("commands.morecommands.tpa.norequest")));
                 }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
                 throw new CommandException(localization.get("commands.morecommands.tpa.self"));
@@ -84,12 +81,12 @@ public class TpaCommand extends CommandBase {
                 if (dest != null) {
                     // le joueur existe
                     handler.addTpa(dest.getName(), src);
-                    dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
+                    dest.sendMessage(new TextComponentString(String.format(
                             localization.get("commands.morecommands.tpa.dst"),
-                            src.getName()))));
-                    src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
+                            src.getName())));
+                    src.sendMessage(new TextComponentString(String.format(
                             localization.get("commands.morecommands.tpa.src"),
-                            dest.getName()))));
+                            dest.getName())));
                 } else {
                     throw new PlayerNotFoundException(args[0]);
                 }

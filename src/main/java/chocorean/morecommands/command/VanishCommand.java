@@ -8,7 +8,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.UserListOps;
 
+import java.util.Map;
+
 public class VanishCommand extends CommandBase {
+    private Map<String, String> localization = MoreCommands.localization;
+
     @Override
     public String getName() {
         return "vanish";
@@ -16,7 +20,7 @@ public class VanishCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.localization.get("commands.morecommands.vanish.usage");
+        return localization.get("commands.morecommands.vanish.usage");
     }
 
     @Override
@@ -24,10 +28,10 @@ public class VanishCommand extends CommandBase {
         EntityPlayerMP player = ((EntityPlayerMP)sender);
         if (player.isInvisible()) {
             player.setInvisible(false);
-            // player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now visible.")));
+            localization.get("commands.morecommands.vanish.visible");
         } else {
             player.setInvisible(true);
-            // player.connection.sendPacket(new SPacketChat(new TextComponentString("You're now invisible.")));
+            localization.get("commands.morecommands.vanish.invisible");
         }
     }
 

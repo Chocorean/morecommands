@@ -45,8 +45,7 @@ public class SetHomeCommand extends CommandBase {
         Home home = new Home(p.getName(), pos, p.rotationYaw, p.rotationPitch);
         try {
             this.storage.registerHome(home);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    localization.get("commands.morecommands.sethome.success"))));
+            p.sendMessage(new TextComponentString(localization.get("commands.morecommands.sethome.success")));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
         }
