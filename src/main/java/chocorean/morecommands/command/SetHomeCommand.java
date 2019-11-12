@@ -32,7 +32,7 @@ public class SetHomeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.sethome.usage");
+        return localization.get("commands.morecommands.sethome.usage");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SetHomeCommand extends CommandBase {
         try {
             this.storage.registerHome(home);
             p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    localization.get("command.morecommands.sethome.success"))));
+                    localization.get("commands.morecommands.sethome.success"))));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
         }

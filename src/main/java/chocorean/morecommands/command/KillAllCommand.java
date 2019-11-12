@@ -37,7 +37,7 @@ public class KillAllCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.killall.usage");
+        return localization.get("commands.morecommands.killall.usage");
     }
 
     @Override
@@ -81,7 +81,7 @@ public class KillAllCommand extends CommandBase {
             }
         }
         ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(
-                String.format(localization.get("command.morecommands.kilall.success"), cpt))));
+                String.format(localization.get("commands.morecommands.kilall.success"), cpt))));
     }
 
     @Override

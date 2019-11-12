@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class MoreCommandsConfig {
     /* Localization */
     @Config.Comment("Localization")
-    public static String language = "en_us";
+    public static String language = "en_US";
 
     /* Commands registration */
     @Config(modid = MoreCommands.MODID, category = "Command")

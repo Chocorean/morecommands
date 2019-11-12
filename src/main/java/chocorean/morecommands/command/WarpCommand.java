@@ -31,7 +31,7 @@ public class WarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.localization.get("command.morecommands.warp.usage");
+        return MoreCommands.localization.get("commands.morecommands.warp.usage");
     }
 
     @Override

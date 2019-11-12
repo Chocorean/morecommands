@@ -24,7 +24,7 @@ public class SetSpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.setspawn.usage");
+        return localization.get("commands.morecommands.setspawn.usage");
     }
 
     @Override

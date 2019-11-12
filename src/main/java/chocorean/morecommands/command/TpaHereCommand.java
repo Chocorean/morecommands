@@ -31,7 +31,7 @@ public class TpaHereCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.tpahere.usage");
+        return localization.get("commands.morecommands.tpahere.usage");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class TpaHereCommand extends CommandBase {
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
                     p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                            localization.get("command.morecommands.tpa.norequest"))));
+                            localization.get("commands.morecommands.tpa.norequest"))));
                 }
             } else if (args[0].equals("yes")){
                 try {
@@ -72,20 +72,20 @@ public class TpaHereCommand extends CommandBase {
                     this.handler.rmTpa(p.getName());
                 } catch (NullPointerException e) {
                     p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                            localization.get("command.morecommands.tpa.norequest"))));
+                            localization.get("commands.morecommands.tpa.norequest"))));
                 }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
-                throw new CommandException(localization.get("command.morecommands.tpa.self"));
+                throw new CommandException(localization.get("commands.morecommands.tpa.self"));
             } else { // on essaie de tp
                 EntityPlayerMP src = p.getServer().getPlayerList().getPlayerByUsername(args[0]);
                 if (src != null) {
                     // le joueur existe
                     handler.addTpah(src.getName(), p);
                     src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            localization.get("command.morecommands.tpahere.src"),
+                            localization.get("commands.morecommands.tpahere.src"),
                             p.getName()))));
                     p.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            localization.get("command.morecommands.tpahere.dst"),
+                            localization.get("commands.morecommands.tpahere.dst"),
                             src.getName()))));
                 } else {
                     throw new PlayerNotFoundException(args[0]);

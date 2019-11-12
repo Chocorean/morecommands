@@ -16,7 +16,7 @@ public class SpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.localization.get("command.morecommands.spawn.usage");
+        return MoreCommands.localization.get("commands.morecommands.spawn.usage");
     }
 
     @Override

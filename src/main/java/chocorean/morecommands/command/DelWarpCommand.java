@@ -33,7 +33,7 @@ public class DelWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.delwarp.usage");
+        return localization.get("commands.morecommands.delwarp.usage");
     }
 
     @Override
@@ -44,11 +44,11 @@ public class DelWarpCommand extends CommandBase {
         try {
             if (!this.storage.listWarps().contains(args[0])) {
                 throw new WarpNotFoundException(
-                        String.format(localization.get("command.morecommands.delwarp.error"), args[0]));
+                        String.format(localization.get("commands.morecommands.delwarp.error"), args[0]));
             } else {
                 this.storage.deleteWarp(args[0]);
                 sender.sendMessage(new TextComponentString(
-                        String.format(localization.get("command.morecommands.delwarp.success"), args[0])));
+                        String.format(localization.get("commands.morecommands.delwarp.success"), args[0])));
                 //((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.back.success", args[0]))));
             }
         } catch (SQLException e) {

@@ -28,7 +28,7 @@ public class HomeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.localization.get("command.morecommands.home.usage");
+        return MoreCommands.localization.get("commands.morecommands.home.usage");
     }
 
     @Override

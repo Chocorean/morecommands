@@ -34,7 +34,7 @@ public class SetWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return localization.get("command.morecommands.setwarp.usage");
+        return localization.get("commands.morecommands.setwarp.usage");
     }
 
     @Override
@@ -49,11 +49,11 @@ public class SetWarpCommand extends CommandBase {
         try {
             this.storage.registerWarp(warp);
             p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    String.format(localization.get("command.morecommands.setwarp.success"), args[0]))));
+                    String.format(localization.get("commands.morecommands.setwarp.success"), args[0]))));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
             p.connection.sendPacket(new SPacketChat(new TextComponentString(
-                    String.format(localization.get("command.morecommands.setwarp.error"), args[0]))));
+                    String.format(localization.get("commands.morecommands.setwarp.error"), args[0]))));
         }
     }
 
