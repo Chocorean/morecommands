@@ -13,9 +13,11 @@ import net.minecraft.util.text.TextComponentString;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class WarpsCommand extends CommandBase {
     private final IStorageStrategy storage;
+    private Map<String, String> localization = MoreCommands.localization;
 
     public WarpsCommand(IDataSourceStrategy strategy) {
         storage = new StorageModule(strategy);
@@ -28,19 +30,20 @@ public class WarpsCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return MoreCommands.localization.get("command.morecommands.warps.usage");
+        return localization.get("command.morecommands.warps.usage");
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        StringBuffer buffer = new StringBuffer("command.morecommands.warps.list");
+        StringBuffer buffer = new StringBuffer(localization.get("command.morecommands.warps.list"));
         try {
             ArrayList<String> warps = storage.listWarps();
             for (int i=0; i<warps.size(); i++) {
                 buffer.append(warps.get(i));
                 if (i != warps.size()-1) buffer.append(", ");
             }
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(buffer.toString())));
+            sender.sendMessage(new TextComponentString(buffer.toString()));
+            //((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(buffer.toString())));
         } catch (SQLException e) {
             e.printStackTrace();
         }
