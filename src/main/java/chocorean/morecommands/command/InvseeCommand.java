@@ -46,10 +46,14 @@ public class InvseeCommand extends CommandBase {
         if (args.length != 1) {
             throw new InvalidNumberOfArgumentsException();
         }
+        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: /invsee");
         EntityPlayerMP target = server.getPlayerList().getPlayerByUsername(args[0]);
+        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: targer == null: " + (target == null));
         if (target == null) return;
         IInventory targetInventory = target.inventory;
+        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: inventory.isEmpty: " + targetInventory.isEmpty());
         ((EntityPlayerMP)sender).displayGUIChest(targetInventory);
+        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: displayed inventory");
     }
 
     @Override
