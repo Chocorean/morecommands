@@ -86,7 +86,7 @@ public class TpaHereCommand extends CommandBase {
                             localization.get("commands.morecommands.tpahere.src"),
                             p.getName())));
                     p.sendMessage(new TextComponentString(String.format(
-                            localization.get("commands.morecommands.tpahere.request"),
+                            localization.get("commands.morecommands.tpa.request"),
                             src.getName())));
                 } else {
                     throw new PlayerNotFoundException(args[0]);
