@@ -66,7 +66,8 @@ public class KillAllCommand extends CommandBase {
         BlockPos pos = sender.getPosition();
         List<Entity> availableEntities = sender.getEntityWorld().loadedEntityList;
         int cpt = 0;
-        for (Entity e : availableEntities) {
+        for (int i=0; i<availableEntities.size(); i++) {
+            Entity e = availableEntities.get(i);
             if (e instanceof EntityLivingBase && !(e instanceof EntityPlayerMP)) {
                 BlockPos entityPos = e.getPosition();
                 if (entityPos.getDistance(pos.getX(), pos.getY(), pos.getZ()) <= distance) {
