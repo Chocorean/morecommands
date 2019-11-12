@@ -85,7 +85,7 @@ public class TpaCommand extends CommandBase {
                             localization.get("commands.morecommands.tpa.dst"),
                             src.getName())));
                     src.sendMessage(new TextComponentString(String.format(
-                            localization.get("commands.morecommands.tpa.src"),
+                            localization.get("commands.morecommands.tpa.request"),
                             dest.getName())));
                 } else {
                     throw new PlayerNotFoundException(args[0]);
