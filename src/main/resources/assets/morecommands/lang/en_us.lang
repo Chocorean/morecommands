@@ -25,11 +25,14 @@ command.morecommands.setwarp.usage=/setwarp <warp name> - Set a warp at your cur
 command.morecommands.setwarp.error=Could not create warp %s.
 command.morecommands.setwarp.success=Created warp %s.
 command.morecommands.spawn.usage=/spawn - Teleport to the world's spawn.
+command.morecommands.spawn.success=Spawnpoint has been changed.
 command.morecommands.tpa.usage=/tpa <player> - Ask a player you can teleport to him/her.
 command.morecommands.tpahere.usage=/tpahere player - Ask a player to teleport to you.
 command.morecommands.tpdeny=%s denied your request.
 command.morecommands.tpa.dst=%s would like to join you. Type /tpahere yes/no to answer.
 command.morecommands.tpa.request=A request has been sent to %s.
+command.morecommands.tpa.norequest=There is no /tpa request to anwser to.
+command.morecommands.tpa.self=You can't ask yourself to teleport to you.
 command.morecommands.tpahere.src=%s would like you to join him. Type /tpa yes/no to answer.
 command.morecommands.vanish.usage=/vanish - Make you invisible. (do it again to become visible).
 command.morecommands.warp.usage=/warp <warp name> - Teleport to the specified warp.
@@ -39,3 +42,6 @@ command.morecommands.warps.list=Available warps:
 
 # Database
 morecommands.database.connecterror=Unable to connect to the database.
+
+# Misc
+morecommandsmisc.invalid_number_arguments=Invalid number of arguments

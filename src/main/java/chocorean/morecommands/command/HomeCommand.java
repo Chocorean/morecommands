@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.HomeNotFoundException;
 import chocorean.morecommands.exception.HomeWrongDimensionException;
 import chocorean.morecommands.model.IHome;
@@ -27,7 +28,7 @@ public class HomeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.home.usage";
+        return MoreCommands.localization.get("command.morecommands.home.usage");
     }
 
     @Override

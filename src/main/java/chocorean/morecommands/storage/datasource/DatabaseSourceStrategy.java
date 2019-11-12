@@ -1,5 +1,6 @@
 package chocorean.morecommands.storage.datasource;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.HomeNotFoundException;
 import chocorean.morecommands.exception.WarpNotFoundException;
 import chocorean.morecommands.storage.database.HomeDAO;
@@ -34,7 +35,7 @@ public class DatabaseSourceStrategy implements IDataSourceStrategy {
             w = this.warpsDAO.findByName(name);
         } catch(SQLException e) {
             LOGGER.catching(Level.ERROR, e);
-            throw new WarpNotFoundException("morecommands.database.connecterror");
+            throw new WarpNotFoundException(MoreCommands.localization.get("morecommands.database.connecterror"));
         }
         return w;
     }

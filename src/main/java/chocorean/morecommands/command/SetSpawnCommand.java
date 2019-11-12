@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.SetspawnInvalidDimensionException;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
@@ -11,7 +12,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.UserListOps;
 import net.minecraft.util.text.TextComponentString;
 
+import java.util.Map;
+
 public class SetSpawnCommand extends CommandBase {
+    private Map<String, String> localization = MoreCommands.localization;
+
     @Override
     public String getName() {
         return "setspawn";
@@ -19,7 +24,7 @@ public class SetSpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.setspawn.usage";
+        return localization.get("command.morecommands.setspawn.usage");
     }
 
     @Override
@@ -28,7 +33,8 @@ public class SetSpawnCommand extends CommandBase {
             throw new SetspawnInvalidDimensionException();
         if (!sender.getEntityWorld().isRemote) {
             sender.getEntityWorld().setSpawnPoint(sender.getPosition());
-            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString("Spawnpoint has been changed.")));
+            ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(
+                    localization.get("Spawnpoint has been changed."))));
         }
     }
 

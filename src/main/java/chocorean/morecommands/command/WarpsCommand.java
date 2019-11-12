@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.storage.IStorageStrategy;
 import chocorean.morecommands.storage.StorageModule;
 import chocorean.morecommands.storage.datasource.IDataSourceStrategy;
@@ -27,7 +28,7 @@ public class WarpsCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.warps.usage";
+        return MoreCommands.localization.get("command.morecommands.warps.usage");
     }
 
     @Override

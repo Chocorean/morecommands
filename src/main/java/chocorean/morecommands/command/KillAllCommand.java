@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.InvalidArgumentException;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
@@ -17,8 +18,11 @@ import net.minecraft.util.text.TextComponentString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class KillAllCommand extends CommandBase {
+    private Map<String, String> localization = MoreCommands.localization;
+
     @Override
     public String getName() {
         return "killall";
@@ -33,7 +37,7 @@ public class KillAllCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.killall.usage";
+        return localization.get("command.morecommands.killall.usage");
     }
 
     @Override
@@ -76,7 +80,8 @@ public class KillAllCommand extends CommandBase {
                 }
             }
         }
-        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.kilall.success", cpt))));
+        ((EntityPlayerMP)sender).connection.sendPacket(new SPacketChat(new TextComponentString(
+                String.format(localization.get("command.morecommands.kilall.success"), cpt))));
     }
 
     @Override

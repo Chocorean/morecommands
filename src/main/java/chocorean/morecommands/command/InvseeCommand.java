@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
@@ -24,7 +25,7 @@ public class InvseeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.invsee.usage";
+        return MoreCommands.localization.get("command.morecommands.invsee.usage");
     }
 
     @Override

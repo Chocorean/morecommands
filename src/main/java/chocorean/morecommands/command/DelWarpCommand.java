@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
 import chocorean.morecommands.exception.WarpNotFoundException;
 import chocorean.morecommands.storage.datasource.IDataSourceStrategy;
@@ -30,7 +31,7 @@ public class DelWarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.delwarp.usage";
+        return MoreCommands.localization.get("command.morecommands.delwarp.usage");
     }
 
     @Override

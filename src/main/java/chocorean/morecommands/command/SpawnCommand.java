@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.model.PlayerPos;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -15,7 +16,7 @@ public class SpawnCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.spawn.usage";
+        return MoreCommands.localization.get("command.morecommands.spawn.usage");
     }
 
     @Override

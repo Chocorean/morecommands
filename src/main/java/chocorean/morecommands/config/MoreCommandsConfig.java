@@ -10,10 +10,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = MoreCommands.MODID)
 @Config.LangKey("morecommands.config.title")
 public class MoreCommandsConfig {
+    /* Localization */
+    @Config.Comment("Localization")
+    public static String language = "en_us";
 
     /* Commands registration */
-    public static CommandCategory commandCategory = new CommandCategory();
-
+    @Config(modid = MoreCommands.MODID, category = "Command")
     public static class CommandCategory {
         @Config.Comment("Defines if /back is registered.")
         public static boolean isBackEnabled = false;
@@ -44,8 +46,7 @@ public class MoreCommandsConfig {
     }
 
     /* Database related config */
-    public static  DatabaseCategory databaseCategory = new DatabaseCategory();
-
+    @Config(modid = MoreCommands.MODID, category = "Database")
     public static class DatabaseCategory {
         @Config.Comment("Defines storage strategy (FILE or DATABASE)")
         public static String storageStrategy = "FILE";

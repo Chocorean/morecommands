@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnderchestCommand extends CommandBase {
+
     @Override
     public String getName() {
         return "enderchest";
@@ -27,7 +29,7 @@ public class EnderchestCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.enderchest.usage";
+        return MoreCommands.localization.get("command.morecommands.enderchest.usage");
     }
 
     @Override

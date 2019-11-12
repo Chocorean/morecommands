@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.InvalidNumberOfArgumentsException;
 import chocorean.morecommands.exception.WarpNotFoundException;
 import chocorean.morecommands.model.IWarp;
@@ -30,7 +31,7 @@ public class WarpCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.warp.usage";
+        return MoreCommands.localization.get("command.morecommands.warp.usage");
     }
 
     @Override

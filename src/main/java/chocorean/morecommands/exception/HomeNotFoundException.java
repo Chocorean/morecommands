@@ -1,8 +1,10 @@
 package chocorean.morecommands.exception;
 
 
+import chocorean.morecommands.MoreCommands;
+
 public class HomeNotFoundException extends MoreCommandsException {
     public HomeNotFoundException(Object... objects) {
-        super("command.morecommands.home.error", objects);
+        super(MoreCommands.localization.get("command.morecommands.home.error"), objects);
     }
 }

@@ -1,11 +1,11 @@
 package chocorean.morecommands;
 
 import chocorean.morecommands.command.*;
+import chocorean.morecommands.config.MoreCommandsConfig;
 import chocorean.morecommands.misc.TpHandler;
 import chocorean.morecommands.storage.datasource.DatabaseSourceStrategy;
 import chocorean.morecommands.storage.datasource.FileDataSourceStrategy;
 import chocorean.morecommands.storage.datasource.IDataSourceStrategy;
-import chocorean.morecommands.config.MoreCommandsConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
@@ -15,7 +15,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Mod(modid = MoreCommands.MODID, name = MoreCommands.NAME, version = MoreCommands.VERSION, serverSideOnly = true, acceptableRemoteVersions = "*")
 public class MoreCommands
@@ -24,32 +29,48 @@ public class MoreCommands
     static final String NAME = "MoreCommands";
     static final String VERSION = "1.10";
 
-    @Mod.Instance(MODID)
-    public static MoreCommands instance;
+    private static IDataSourceStrategy strategy;
+    public static TpHandler handler;
 
     public static final Logger LOGGER = FMLLog.log;
-    private static IDataSourceStrategy strategy;
+    public static Map<String, String> localization;
 
-    public static TpHandler handler;
+    private void fillLocalization() {
+        localization = new HashMap<>();
+        String path = String.format("assets/morecommands/lang/%s.lang", MoreCommandsConfig.language);
+        InputStream inStream = getClass().getClassLoader().getResourceAsStream(path);
+        Properties prop = new Properties();
+        try {
+            prop.load(inStream);
+        } catch (IOException e) {
+            // I think this cannot happen
+            LOGGER.error("[MoreCommands] IOException in MoreCommands.fillLocalization():\n" + e.getMessage());
+        } catch (NullPointerException e) {
+            LOGGER.error(String.format("[MoreCommands] File %s does not exist!", path));
+        }
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        fillLocalization();
+
+        // Storage strategy
         switch (MoreCommandsConfig.DatabaseCategory.storageStrategy.toUpperCase()) {
             case "DATABASE":
                 MoreCommands.strategy = new DatabaseSourceStrategy();
-                LOGGER.info("[AuthMod] Now using DatabaseAuthenticationStrategy.");
+                LOGGER.info("[MoreCommands] Now using DatabaseAuthenticationStrategy.");
                 break;
             case "FILE":
                 MoreCommands.strategy = new FileDataSourceStrategy(Paths.get(
                         event.getModConfigurationDirectory().getAbsolutePath(),
                         MODID + ".csv").toFile());
-                LOGGER.info("[Authmod] Now using FileAuthenticationStrategy.");
+                LOGGER.info("[MoreCommands] Now using FileAuthenticationStrategy.");
                 break;
             default:
                 MoreCommands.strategy = new FileDataSourceStrategy(Paths.get(
                         event.getModConfigurationDirectory().getAbsolutePath(),
                         MODID + ".csv").toFile());
-                LOGGER.info("[AuthMod] Unknown authentication strategy selected. A .csv file is now used.");
+                LOGGER.info("[MoreCommands] Unknown authentication strategy selected. A .csv file is now used.");
         }
     }
 
@@ -113,9 +134,5 @@ public class MoreCommands
             LOGGER.info("Adding /delwarp");
             event.registerServerCommand(new DelWarpCommand(strategy));
         }
-    }
-
-    public static IDataSourceStrategy getDataSourceStrategy() {
-        return MoreCommands.strategy;
     }
 }

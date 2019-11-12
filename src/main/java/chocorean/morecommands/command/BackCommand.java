@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import chocorean.morecommands.exception.PlayerHasNoLastPositionException;
 import chocorean.morecommands.model.PlayerPos;
 import net.minecraft.command.CommandBase;
@@ -21,7 +22,7 @@ public class BackCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.back.usage";
+        return MoreCommands.localization.get("command.morecommands.back.usage");
     }
 
     @Override

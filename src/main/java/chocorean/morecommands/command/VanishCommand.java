@@ -1,5 +1,6 @@
 package chocorean.morecommands.command;
 
+import chocorean.morecommands.MoreCommands;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -15,7 +16,7 @@ public class VanishCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.vanish.usage";
+        return MoreCommands.localization.get("command.morecommands.vanish.usage");
     }
 
     @Override

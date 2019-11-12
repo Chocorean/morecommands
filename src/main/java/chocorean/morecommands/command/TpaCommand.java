@@ -18,9 +18,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class TpaCommand extends CommandBase {
     private TpHandler handler = MoreCommands.handler;
+    private Map<String, String> localization = MoreCommands.localization;
 
     @Override
     public String getName() {
@@ -29,7 +31,7 @@ public class TpaCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.tpa.usage";
+        return localization.get("command.morecommands.tpa.usage");
     }
 
     @Override
@@ -52,11 +54,14 @@ public class TpaCommand extends CommandBase {
             EntityPlayerMP p = (EntityPlayerMP)sender;
             if (args[0].equals("no")){
                 try {
-                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(new TextComponentString(String.format("command.morecommands.tpdeny", p.getName()))));
+                    this.handler.getDestForTpah(p.getName()).connection.sendPacket(new SPacketChat(
+                            new TextComponentString(
+                                    String.format(localization.get("command.morecommands.tpdeny"), p.getName()))));
                     // suppression
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
-                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString(
+                            localization.get("command.morecommands.tpa.norequest"))));
                 }
             } else if (args[0].equals("yes")){
                 try {
@@ -68,10 +73,11 @@ public class TpaCommand extends CommandBase {
                     p.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), p.rotationYaw, p.rotationPitch);
                     this.handler.rmTpah(p.getName());
                 } catch (NullPointerException e) {
-                    p.connection.sendPacket(new SPacketChat(new TextComponentString("There is no /tpa request to anwser to.")));
+                    p.connection.sendPacket(new SPacketChat(new TextComponentString(
+                            localization.get("command.morecommands.tpa.norequest"))));
                 }
             } else if (args[0].equals(sender.getName())){ // un boloss essaie de se tp a soi meme
-                throw new CommandException("You can't ask yourself to teleport to you.");
+                throw new CommandException(localization.get("command.morecommands.tpa.self"));
             } else { // on essaie de se tp
                 EntityPlayerMP src = (EntityPlayerMP)sender;
                 EntityPlayerMP dest = src.getServer().getPlayerList().getPlayerByUsername(args[0]);
@@ -79,10 +85,10 @@ public class TpaCommand extends CommandBase {
                     // le joueur existe
                     handler.addTpa(dest.getName(), src);
                     dest.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            "command.morecommands.tpa.dst",
+                            localization.get("command.morecommands.tpa.dst"),
                             src.getName()))));
                     src.connection.sendPacket(new SPacketChat(new TextComponentString(String.format(
-                            "command.morecommands.tpa.src",
+                            localization.get("command.morecommands.tpa.src"),
                             dest.getName()))));
                 } else {
                     throw new PlayerNotFoundException(args[0]);

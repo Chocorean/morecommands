@@ -15,9 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public class SetHomeCommand extends CommandBase {
     private final StorageModule storage;
+    private Map<String, String> localization = MoreCommands.localization;
 
     public SetHomeCommand(IDataSourceStrategy strategy) {
         storage = new StorageModule(strategy);
@@ -30,7 +32,7 @@ public class SetHomeCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "command.morecommands.sethome.usage";
+        return localization.get("command.morecommands.sethome.usage");
     }
 
     @Override
@@ -43,7 +45,8 @@ public class SetHomeCommand extends CommandBase {
         Home home = new Home(p.getName(), pos, p.rotationYaw, p.rotationPitch);
         try {
             this.storage.registerHome(home);
-            p.connection.sendPacket(new SPacketChat(new TextComponentString("command.morecommands.sethome.success")));
+            p.connection.sendPacket(new SPacketChat(new TextComponentString(
+                    localization.get("command.morecommands.sethome.success"))));
         } catch (SQLException e) {
             MoreCommands.LOGGER.error(e);
         }
