@@ -6,7 +6,9 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.server.MinecraftServer;
@@ -48,12 +50,24 @@ public class InvseeCommand extends CommandBase {
             throw new InvalidNumberOfArgumentsException();
         }
         EntityPlayerMP target = server.getPlayerList().getPlayerByUsername(args[0]);
-        if (target == null) return;
+        if (target == null) return; // TODO: send an error message
         IInventory targetInventory = target.inventory;
+
+        class FakeInventory extends InventoryPlayer {
+            public FakeInventory(EntityPlayer playerIn) {
+                super(playerIn);
+            }
+
+            @Override
+            public boolean isUsableByPlayer(EntityPlayer player)
+            {
+                return !this.player.isDead;
+            }
+        }
+        IInventory fakeInventory = new FakeInventory(target);
+
         EntityPlayerMP player = (EntityPlayerMP)sender;
-        player.openContainer = player.inventoryContainer;
-        player.displayGUIChest(targetInventory);
-        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: %s accessed to %s inventory");
+        player.displayGUIChest(fakeInventory);
     }
 
     @Override
