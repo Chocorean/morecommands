@@ -38,15 +38,19 @@ public class MoreCommands
     private void fillLocalization() {
         localization = new HashMap<>();
         String path = String.format("assets/morecommands/lang/%s.lang", MoreCommandsConfig.language);
+        LOGGER.info(String.format("[MoreCommands] Trying to load %s", path));
         InputStream inStream = getClass().getClassLoader().getResourceAsStream(path);
         Properties prop = new Properties();
         try {
             prop.load(inStream);
+            LOGGER.info(String.format("[MoreCommands] Loaded %s", path));
         } catch (IOException e) {
-            // I think this cannot happen
-            LOGGER.error("[MoreCommands] IOException in MoreCommands.fillLocalization():\n" + e.getMessage());
+            LOGGER.error("[MoreCommands] IOException in MoreCommands.java#fillLocalization:\n" + e.getMessage());
         } catch (NullPointerException e) {
             LOGGER.error(String.format("[MoreCommands] File %s does not exist!", path));
+        }
+        for (String s: prop.stringPropertyNames()) {
+            localization.put(s, prop.getProperty(s));
         }
     }
 
