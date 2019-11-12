@@ -7,6 +7,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.UserListOps;
@@ -46,14 +47,13 @@ public class InvseeCommand extends CommandBase {
         if (args.length != 1) {
             throw new InvalidNumberOfArgumentsException();
         }
-        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: /invsee");
         EntityPlayerMP target = server.getPlayerList().getPlayerByUsername(args[0]);
-        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: targer == null: " + (target == null));
         if (target == null) return;
         IInventory targetInventory = target.inventory;
-        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: inventory.isEmpty: " + targetInventory.isEmpty());
-        ((EntityPlayerMP)sender).displayGUIChest(targetInventory);
-        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: displayed inventory");
+        EntityPlayerMP player = (EntityPlayerMP)sender;
+        player.openContainer = player.inventoryContainer;
+        player.displayGUIChest(targetInventory);
+        MoreCommands.LOGGER.info("[MoreCommands] DEBUG: %s accessed to %s inventory");
     }
 
     @Override
